@@ -12,9 +12,9 @@ DELETE  /api/cards/:id  controllers.CardController.deleteCard(id: Long)
 # Index Routes
 GET     /api/index      controllers.IndexController.getIndex(q: String ?= null)
 POST    /api/index/     controllers.IndexController.createNewIndex()
-PUT     /api/index/:id  controllers.CardController.changeIndex(id: Long)
-GET     /api/index/:id  controllers.CardController.getIndex(id: Long)
-DELETE  /api/index/:id  controllers.CardController.deleteIndex(id: Long)
+PUT     /api/index/:id  controllers.IndexController.changeIndex(id: Long)
+GET     /api/index/:id  controllers.IndexController.getIndexById(id: Long)
+DELETE  /api/index/:id  controllers.IndexController.deleteIndex(id: Long)
 
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index

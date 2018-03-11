@@ -8,12 +8,7 @@ public class CardController extends Controller{
 
 
     public Result getCards(String name){
-        if(name.equals("Hans")){
-            return ok("changeCard with Name works!");
-        }
-        else{
-            return ok("changeCard works!");
-        }
+        return ok("changeCard with Name works!");
     }
     public Result createNewCard(){
         return ok("CreateNewCard works!");
