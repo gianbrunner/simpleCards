@@ -1,6 +1,20 @@
 # Routes
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
+#
+# Card Routes
+GET     /api/cards      controllers.CardController.getCards(q: String ?= null)
+POST    /api/cards/     controllers.CardController.createNewCard()
+PUT     /api/cards/:id  controllers.CardController.changeCard(id: Long)
+GET     /api/cards/:id  controllers.CardController.getCard(id: Long)
+DELETE  /api/cards/:id  controllers.CardController.deleteCard(id: Long)
+
+# Index Routes
+GET     /api/index      controllers.IndexController.getIndex(q: String ?= null)
+POST    /api/index/     controllers.IndexController.createNewIndex()
+PUT     /api/index/:id  controllers.CardController.changeIndex(id: Long)
+GET     /api/index/:id  controllers.CardController.getIndex(id: Long)
+DELETE  /api/index/:id  controllers.CardController.deleteIndex(id: Long)
 
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
