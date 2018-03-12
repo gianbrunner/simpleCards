@@ -17,12 +17,12 @@ public class CardController extends Controller{
         return ok("changeCard with Name works!");
     }
 
-    @ApiOperation(value = "Create Card", notes = "Create a new Card. from json")
+    @ApiOperation(value = "Create Card", notes = "Create a new card from json-data.")
     public Result createNewCard(){
         return ok("CreateNewCard works!");
     }
 
-    @ApiOperation(value = "Change Card", notes = "Change a card from json.")
+    @ApiOperation(value = "Change Card", notes = "Change a card from json-data.")
     public Result changeCard(){
         return ok("changeCard id: ");
 

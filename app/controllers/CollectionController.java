@@ -16,12 +16,12 @@ public class CollectionController extends Controller{
         return ok("getCollections with Name works!");
     }
 
-    @ApiOperation(value = "Create Collection", notes = "Create a new collection from json.")
+    @ApiOperation(value = "Create Collection", notes = "Create a new collection from json-data.")
     public Result createNewCollection(){
         return ok("CreateNewCollection works!");
     }
 
-    @ApiOperation(value = "Change Collection", notes = "Change the collection with collection from json.")
+    @ApiOperation(value = "Change Collection", notes = "Change a collection from json-data.")
     public Result changeCollection(){
         return ok("changeCollection works!");
     }

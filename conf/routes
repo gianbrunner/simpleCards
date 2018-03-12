@@ -5,14 +5,14 @@
 # Card Routes
 GET     /api/cards      controllers.CardController.getCards(q: String ?= null)
 POST    /api/cards/     controllers.CardController.createNewCard()
-PUT     /api/cards/:id  controllers.CardController.changeCard()
+PUT     /api/cards      controllers.CardController.changeCard()
 GET     /api/cards/:id  controllers.CardController.getCard(id: Int)
 DELETE  /api/cards/:id  controllers.CardController.deleteCard(id: Int)
 
 # Collection Routes
 GET     /api/collections         controllers.CollectionController.getCollections(q: String ?= null)
 POST    /api/collections/        controllers.CollectionController.createNewCollection()
-PUT     /api/collections/:id     controllers.CollectionController.changeCollection()
+PUT     /api/collections         controllers.CollectionController.changeCollection()
 GET     /api/collections/:id     controllers.CollectionController.getCollection(id: Int)
 DELETE  /api/collections/:id     controllers.CollectionController.deleteCollection(id: Int)
 
