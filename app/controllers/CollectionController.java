@@ -19,7 +19,7 @@ public class CollectionController extends Controller{
     }
 
     @ApiOperation(value = "Change Collection", notes = "Change the collection with given id.")
-    public Result changeCollection(Long id){
+    public Result changeCollection(int id){
         if(id==5){
             return ok("changeCollection with ID works!");
         }
@@ -29,7 +29,7 @@ public class CollectionController extends Controller{
     }
 
     @ApiOperation(value = "Get Collection", notes = "Get the collection with given id.")
-    public Result getCollectionById(Long id){
+    public Result getCollectionById(int id){
         if(id==5){
             return ok("getCollection with ID works!");
         }
@@ -39,7 +39,7 @@ public class CollectionController extends Controller{
     }
 
     @ApiOperation(value = "Delete Collection", notes = "Delete the collection with given id.")
-    public Result deleteCollection(Long id){
+    public Result deleteCollection(int id){
         if(id==5){
             return ok("deleteCollection with ID works!");
         }
