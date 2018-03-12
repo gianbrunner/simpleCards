@@ -12,8 +12,8 @@ DELETE  /api/cards/:id  controllers.CardController.deleteCard(id: Int)
 # Collection Routes
 GET     /api/collections         controllers.CollectionController.getCollections(q: String ?= null)
 POST    /api/collections/        controllers.CollectionController.createNewCollection()
-PUT     /api/collections/:id     controllers.CollectionController.changeCollection(id: Int)
-GET     /api/collections/:id     controllers.CollectionController.getCollectionById(id: Int)
+PUT     /api/collections/:id     controllers.CollectionController.changeCollection()
+GET     /api/collections/:id     controllers.CollectionController.getCollection(id: Int)
 DELETE  /api/collections/:id     controllers.CollectionController.deleteCollection(id: Int)
 
 # An example controller showing a sample home page
