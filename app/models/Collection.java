@@ -2,8 +2,7 @@ package models;
 
 import java.util.List;
 
-public class Index {
-    //Test
+public class Collection {
     private Long id;
     private List<Card> cards;
     private String name;

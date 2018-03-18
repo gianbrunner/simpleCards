@@ -5,19 +5,22 @@
 # Card Routes
 GET     /api/cards      controllers.CardController.getCards(q: String ?= null)
 POST    /api/cards/     controllers.CardController.createNewCard()
-PUT     /api/cards/:id  controllers.CardController.changeCard(id: Long)
-GET     /api/cards/:id  controllers.CardController.getCard(id: Long)
-DELETE  /api/cards/:id  controllers.CardController.deleteCard(id: Long)
+PUT     /api/cards      controllers.CardController.changeCard()
+GET     /api/cards/:id  controllers.CardController.getCard(id: Int)
+DELETE  /api/cards/:id  controllers.CardController.deleteCard(id: Int)
 
-# Index Routes
-GET     /api/index      controllers.IndexController.getIndex(q: String ?= null)
-POST    /api/index/     controllers.IndexController.createNewIndex()
-PUT     /api/index/:id  controllers.IndexController.changeIndex(id: Long)
-GET     /api/index/:id  controllers.IndexController.getIndexById(id: Long)
-DELETE  /api/index/:id  controllers.IndexController.deleteIndex(id: Long)
+# Collection Routes
+GET     /api/collections         controllers.CollectionController.getCollections(q: String ?= null)
+POST    /api/collections/        controllers.CollectionController.createNewCollection()
+PUT     /api/collections         controllers.CollectionController.changeCollection()
+GET     /api/collections/:id     controllers.CollectionController.getCollection(id: Int)
+DELETE  /api/collections/:id     controllers.CollectionController.deleteCollection(id: Int)
 
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+# Swagger docs route
+GET     /docs/swagger.json           controllers.ApiHelpController.getResources
