@@ -3,14 +3,33 @@ package controllers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import play.*;
+import play.core.j.HttpExecutionContext;
+import play.libs.Json;
 import play.mvc.*;
+import services.CardService;
 import services.DefaultCardService;
+
+import javax.inject.Inject;
+import java.util.concurrent.CompletionStage;
+import java.util.stream.Collectors;
 //import services.DefaultCardService;
 
 @Api(value = "Card Controller", produces = "application/json")
 public class CardController extends Controller{
 
-    DefaultCardService defCardService = new DefaultCardService();
+    private final CardService cardService;
+    private final HttpExecutionContext ec;
+
+    @Inject
+    public CardController(CardService cardService, HttpExecutionContext ec){
+        this.cardService = cardService;
+        this.ec = ec;
+    }
+    public CompletionStage<Result> cards(){
+        return cardService.get().thenApplyAsync(personStream->{
+            return ok(Json.toJson(personStream.collect(Collectors.toList())));
+        }, ec.current());
+    }
 
     @ApiOperation(value = "Get Cards", notes = "Get list of cards filtered by string.")
     public Result getCards(String name){

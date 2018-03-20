@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.List;
 
-@Entity(name = "Collection")
+@Entity(name = "collection")
 public class Collection {
 
     @Id
