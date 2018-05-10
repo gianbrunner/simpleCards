@@ -3,13 +3,25 @@ package controllers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import play.*;
+import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.*;
+import services.CardService;
+import services.CollectionService;
 import services.DefaultCollectionService;
+
+import javax.inject.Inject;
 
 @Api(value = "Collection Controller", produces = "application/json")
 public class CollectionController extends Controller{
 
-    DefaultCollectionService defCollService = new DefaultCollectionService();
+    private final CollectionService collectionService;
+    private final HttpExecutionContext ec;
+
+    @Inject
+    public CollectionController(CollectionService collectionService, HttpExecutionContext ec){
+        this.collectionService = collectionService;
+        this.ec = ec;
+    }
 
     @ApiOperation(value = "Get Collections", notes = "Get list of collections filtered by string.")
     public Result getCollections(String name){

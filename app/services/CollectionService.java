@@ -1,43 +1,41 @@
 package services;
 
+import com.google.inject.ImplementedBy;
+import models.Collection;
 import models.Collection;
 
 import java.util.List;
+import java.util.concurrent.CompletionStage;
+import java.util.stream.Stream;
 
+@ImplementedBy(DefaultCollectionService.class)
 public interface CollectionService {
 
     /**
      * Return's list of all collections.
      * @return list of all collections
      */
-    List<Collection> get(final String search);
+    CompletionStage<Stream<Collection>> get();
 
     /**
      * Returns collection with given identifier.
      * @param id collection identifier
      * @return collection with given identifier or {@code null}
      */
-    Collection get(final int id);
-
-    /**
-     * Returns changed collection.
-     * @param updateCollection collection to update
-     * @return updated collection or {@code null}
-     */
-    Collection change(final Collection updateCollection);
+    CompletionStage<Collection> get(final int id);
 
     /**
      * Removes collection with given identifier.
      * @param id collection identifier
      * @return {@code true} on success  {@code false} on failure
      */
-    boolean delete(final int id);
+    CompletionStage<Boolean> delete(final int id);
 
     /**
      * Adds the given collection.
      * @param collection to add
      * @return added collection
      */
-    Collection add(final Collection collection);
+    CompletionStage<Collection> add(final Collection collection);
 
 }

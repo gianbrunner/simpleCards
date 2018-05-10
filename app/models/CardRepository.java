@@ -21,9 +21,17 @@ public class CardRepository {
     public CompletionStage<Stream<Card>> list() {
         return supplyAsync(() -> wrap(em -> list(em)));
     }
+    public CompletionStage<Card> find(int id) {
+        return supplyAsync(() -> wrap(em -> find(em, id)));
+    }
+    public CompletionStage<Boolean> remove(int id) {
+        return supplyAsync(() -> wrap(em -> remove(em, id)));
+    }
     private <T> T wrap(Function<EntityManager, T> function) {
         return jpaApi.withTransaction(function);
     }
+
+
     private Card insert(EntityManager em, Card card) {
         em.persist(card);
         return card;
@@ -31,5 +39,17 @@ public class CardRepository {
     private Stream<Card> list(EntityManager em) {
         List<Card> cards = em.createQuery("select c from card c", Card.class).getResultList();
         return cards.stream();
+    }
+    private Card find(EntityManager em, int id) {
+        return em.find(Card.class, id);
+    }
+    private Boolean remove(EntityManager em, int id) {
+        Card card = em.find(Card.class, id);
+        if(null != card) {
+            em.remove(card);
+            return true;
+
+        }
+        return false;
     }
 }

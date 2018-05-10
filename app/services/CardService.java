@@ -1,42 +1,39 @@
 package services;
 
+import com.google.inject.ImplementedBy;
 import models.Card;
 
 import java.util.List;
+import java.util.concurrent.CompletionStage;
+import java.util.stream.Stream;
 
+@ImplementedBy(DefaultCardService.class)
 public interface CardService {
 
     /**
      * Return's list of all cards.
      * @return list of all cards
      */
-    List<Card> get(final String search);
+    CompletionStage<Stream<Card>> get();
 
     /**
      * Returns card with given identifier.
      * @param id card identifier
      * @return card with given identifier or {@code null}
      */
-    Card get(final int id);
-
-    /**
-     * Returns changed card.
-     * @param updateCard card to update
-     * @return updated card or {@code null}
-     */
-    Card change(final Card updateCard);
+    CompletionStage<Card> get(final int id);
 
     /**
      * Removes card with given identifier.
      * @param id card identifier
      * @return {@code true} on success  {@code false} on failure
      */
-    boolean delete(final int id);
+    CompletionStage<Boolean> delete(final int id);
 
     /**
      * Adds the given card.
      * @param card to add
      * @return added card
      */
-    Card add(final Card card);
+    CompletionStage<Card> add(final Card card);
 }

@@ -3,8 +3,9 @@ package controllers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import play.*;
-import play.core.j.HttpExecutionContext;
+import play.libs.concurrent.HttpExecutionContext;
 import play.libs.Json;
+
 import play.mvc.*;
 import services.CardService;
 import services.DefaultCardService;

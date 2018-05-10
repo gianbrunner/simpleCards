@@ -1,92 +1,29 @@
 package services;
 
-import models.Card;
+import models.*;
+
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletionStage;
+import java.util.stream.Stream;
 
 public class DefaultCardService implements CardService {
 
-    private final ArrayList<Card> cards = new ArrayList<>();
+    private List<Card> cards;
+    private CardRepository cardRepository;
 
-    /**
-     * Return's list of all cards.
-     *
-     * @param search
-     * @return list of all cards
-     */
-    @Override
-    public List<Card> get(String search) {
-        if(null != search) {
-            ArrayList<Card> cardsFiltered = new ArrayList<>();
-            for (Card card: cards) {
-                if(card.getQuestion().contains(search)) {
-                    cardsFiltered.add(card);
-                }
-            }
-            return cardsFiltered;
-        }
-        return cards;
+    @Inject
+    public DefaultCardService (CardRepository cardRepository){
+        cards = new ArrayList<>();
+        this.cardRepository = cardRepository;
     }
 
-    /**
-     * Returns card with given identifier.
-     *
-     * @param id card identifier
-     * @return card with given identifier or {@code null}
-     */
-    @Override
-    public Card get(int id) {
-        for (Card card: cards) {
-            if(id == card.getId()) {
-                return card;
-            }
-        }
-        return null;
-    }
+    public CompletionStage<Stream<Card>> get() { return cardRepository.list();}
 
-    /**
-     * Returns changed card.
-     *
-     * @param updateCard card to update
-     * @return updated card or {@code null}
-     */
-    @Override
-    public Card change(Card updateCard) {
-        for (Card card: cards) {
-            if(card.getId() == updateCard.getId()){
-                cards.remove(card);
-                cards.add(updateCard);
-                return updateCard;
-            }
-        }
-        return null;
-    }
+    public CompletionStage<Card> get(final int id){ return cardRepository.find(id);}
 
-    /**
-     * Removes card with given identifier.
-     *
-     * @param id card identifier
-     * @return {@code true} on success  {@code false} on failure
-     */
-    @Override
-    public boolean delete(int id) {
-        for (Card card: cards) {
-            if(id == card.getId()){
-                return cards.remove(card);
-            }
-        }
-        return false;
-    }
+    public CompletionStage<Boolean> delete(final int id){ return cardRepository.remove(id); }
 
-    /**
-     * Adds the given card.
-     *
-     * @param card to add
-     * @return added card
-     */
-    @Override
-    public Card add(Card card) {
-        cards.add(card);
-        return cards.get(cards.size()-1);
-    }
+    public CompletionStage<Card> add(final Card card) {return cardRepository.add(card);}
 }
