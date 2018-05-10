@@ -21,9 +21,17 @@ public class DefaultCardService implements CardService {
 
     public CompletionStage<Stream<Card>> get() { return cardRepository.list();}
 
-    public CompletionStage<Card> get(final int id){ return cardRepository.find(id);}
+    public CompletionStage<Card> get(final long id){ return cardRepository.find(id);}
 
-    public CompletionStage<Boolean> delete(final int id){ return cardRepository.remove(id); }
+    public CompletionStage<Boolean> delete(final long id){ return cardRepository.remove(id); }
 
     public CompletionStage<Card> add(final Card card) {return cardRepository.add(card);}
+
+    public Card getDummy() {
+        final Card card = new Card();
+        card.setId(1l);
+        card.setQuestion("was gibt 2 + 2?");
+        card.setAnswer("4");
+        return card;
+    }
 }

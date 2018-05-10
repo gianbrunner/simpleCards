@@ -22,14 +22,14 @@ public interface CollectionService {
      * @param id collection identifier
      * @return collection with given identifier or {@code null}
      */
-    CompletionStage<Collection> get(final int id);
+    CompletionStage<Collection> get(final long id);
 
     /**
      * Removes collection with given identifier.
      * @param id collection identifier
      * @return {@code true} on success  {@code false} on failure
      */
-    CompletionStage<Boolean> delete(final int id);
+    CompletionStage<Boolean> delete(final long id);
 
     /**
      * Adds the given collection.
@@ -37,5 +37,7 @@ public interface CollectionService {
      * @return added collection
      */
     CompletionStage<Collection> add(final Collection collection);
+
+    Collection getDummy();
 
 }

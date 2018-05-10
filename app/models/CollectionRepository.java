@@ -21,10 +21,10 @@ public class CollectionRepository {
     public CompletionStage<Stream<Collection>> list() {
         return supplyAsync(() -> wrap(em -> list(em)));
     }
-    public CompletionStage<Collection> find(int id) {
+    public CompletionStage<Collection> find(long id) {
         return supplyAsync(() -> wrap(em -> find(em, id)));
     }
-    public CompletionStage<Boolean> remove(int id) {
+    public CompletionStage<Boolean> remove(long id) {
         return supplyAsync(() -> wrap(em -> remove(em, id)));
     }
     private <T> T wrap(Function<EntityManager, T> function) {
@@ -40,10 +40,10 @@ public class CollectionRepository {
         List<Collection> collections = em.createQuery("select c from collection c", Collection.class).getResultList();
         return collections.stream();
     }
-    private Collection find(EntityManager em, int id) {
+    private Collection find(EntityManager em, long id) {
         return em.find(Collection.class, id);
     }
-    private Boolean remove(EntityManager em, int id) {
+    private Boolean remove(EntityManager em, long id) {
         Collection collection = em.find(Collection.class, id);
         if(null != collection) {
             em.remove(collection);

@@ -33,7 +33,7 @@ public class CardController extends Controller{
     }
 
     @ApiOperation(value = "Get Cards", notes = "Get list of cards filtered by string.")
-    public Result getCards(String name){
+    public Result getCards(){
         return ok("changeCard with Name works!");
     }
 
@@ -49,7 +49,7 @@ public class CardController extends Controller{
     }
 
     @ApiOperation(value = "Get Card", notes = "Get the card with given id.")
-    public Result getCard(int id){
+    public Result getCard(long id){
         if(id==5){
             return ok("getCard with ID works!");
         }
@@ -59,12 +59,16 @@ public class CardController extends Controller{
     }
 
     @ApiOperation(value = "Delete Card", notes = "Delete card with given id.")
-    public Result deleteCard(int id){
+    public Result deleteCard(long id){
         if(id==5){
             return ok("deleteCard with ID works!");
         }
         else{
             return ok("deleteCard works!");
         }
+    }
+
+    public Result dummy() {
+        return ok(Json.toJson(cardService.getDummy()));
     }
 }

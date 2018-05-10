@@ -3,18 +3,21 @@
 # ~~~~
 #
 # Card Routes
-GET     /api/cards      controllers.CardController.getCards(q: String ?= null)
-POST    /api/cards/     controllers.CardController.createNewCard()
-PUT     /api/cards      controllers.CardController.changeCard()
-GET     /api/cards/:id  controllers.CardController.getCard(id: Int)
-DELETE  /api/cards/:id  controllers.CardController.deleteCard(id: Int)
+GET     /api/cards      controllers.CardController.getCards
+POST    /api/cards/     controllers.CardController.createNewCard
+PUT     /api/cards      controllers.CardController.changeCard
+# dummy muss vor Get's mit ID kommen, da sonst play versucht dummy in Long zu wandeln
+GET     /api/cards/dummy    controllers.CardController.dummy
+GET     /api/cards/:id  controllers.CardController.getCard(id: Long)
+DELETE  /api/cards/:id  controllers.CardController.deleteCard(id: Long)
 
 # Collection Routes
-GET     /api/collections         controllers.CollectionController.getCollections(q: String ?= null)
-POST    /api/collections/        controllers.CollectionController.createNewCollection()
-PUT     /api/collections         controllers.CollectionController.changeCollection()
-GET     /api/collections/:id     controllers.CollectionController.getCollection(id: Int)
-DELETE  /api/collections/:id     controllers.CollectionController.deleteCollection(id: Int)
+GET     /api/collections         controllers.CollectionController.getCollections
+POST    /api/collections/        controllers.CollectionController.createNewCollection
+PUT     /api/collections         controllers.CollectionController.changeCollection
+GET     /api/collections/dummy   controllers.CollectionController.dummy
+GET     /api/collections/:id     controllers.CollectionController.getCollection(id: Long)
+DELETE  /api/collections/:id     controllers.CollectionController.deleteCollection(id: Long)
 
 # An example controller showing a sample home page
 GET     /                           controllers.HomeController.index

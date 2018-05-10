@@ -3,6 +3,7 @@ package controllers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import play.*;
+import play.libs.Json;
 import play.libs.concurrent.HttpExecutionContext;
 import play.mvc.*;
 import services.CardService;
@@ -24,7 +25,7 @@ public class CollectionController extends Controller{
     }
 
     @ApiOperation(value = "Get Collections", notes = "Get list of collections filtered by string.")
-    public Result getCollections(String name){
+    public Result getCollections(){
         return ok("getCollections with Name works!");
     }
 
@@ -39,7 +40,7 @@ public class CollectionController extends Controller{
     }
 
     @ApiOperation(value = "Get Collection", notes = "Get the collection with given id.")
-    public Result getCollection(int id){
+    public Result getCollection(long id){
         if(id==5){
             return ok("getCollection with ID works!");
         }
@@ -49,12 +50,16 @@ public class CollectionController extends Controller{
     }
 
     @ApiOperation(value = "Delete Collection", notes = "Delete the collection with given id.")
-    public Result deleteCollection(int id){
+    public Result deleteCollection(long id){
         if(id==5){
             return ok("deleteCollection with ID works!");
         }
         else{
             return ok("deleteIndex works!");
         }
+    }
+
+    public Result dummy() {
+        return ok(Json.toJson(collectionService.getDummy()));
     }
 }

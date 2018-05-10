@@ -21,10 +21,10 @@ public class CardRepository {
     public CompletionStage<Stream<Card>> list() {
         return supplyAsync(() -> wrap(em -> list(em)));
     }
-    public CompletionStage<Card> find(int id) {
+    public CompletionStage<Card> find(long id) {
         return supplyAsync(() -> wrap(em -> find(em, id)));
     }
-    public CompletionStage<Boolean> remove(int id) {
+    public CompletionStage<Boolean> remove(long id) {
         return supplyAsync(() -> wrap(em -> remove(em, id)));
     }
     private <T> T wrap(Function<EntityManager, T> function) {
@@ -40,10 +40,10 @@ public class CardRepository {
         List<Card> cards = em.createQuery("select c from card c", Card.class).getResultList();
         return cards.stream();
     }
-    private Card find(EntityManager em, int id) {
+    private Card find(EntityManager em, long id) {
         return em.find(Card.class, id);
     }
-    private Boolean remove(EntityManager em, int id) {
+    private Boolean remove(EntityManager em, long id) {
         Card card = em.find(Card.class, id);
         if(null != card) {
             em.remove(card);

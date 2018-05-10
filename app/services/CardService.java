@@ -21,14 +21,14 @@ public interface CardService {
      * @param id card identifier
      * @return card with given identifier or {@code null}
      */
-    CompletionStage<Card> get(final int id);
+    CompletionStage<Card> get(final long id);
 
     /**
      * Removes card with given identifier.
      * @param id card identifier
      * @return {@code true} on success  {@code false} on failure
      */
-    CompletionStage<Boolean> delete(final int id);
+    CompletionStage<Boolean> delete(final long id);
 
     /**
      * Adds the given card.
@@ -36,4 +36,6 @@ public interface CardService {
      * @return added card
      */
     CompletionStage<Card> add(final Card card);
+
+    Card getDummy();
 }

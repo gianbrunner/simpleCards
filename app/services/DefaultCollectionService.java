@@ -24,9 +24,18 @@ public class DefaultCollectionService implements CollectionService {
 
     public CompletionStage<Stream<Collection>> get() { return collectionRepository.list();}
 
-    public CompletionStage<Collection> get(final int id){ return collectionRepository.find(id);}
+    public CompletionStage<Collection> get(final long id){ return collectionRepository.find(id);}
 
-    public CompletionStage<Boolean> delete(final int id){ return collectionRepository.remove(id); }
+    public CompletionStage<Boolean> delete(final long id){ return collectionRepository.remove(id); }
 
     public CompletionStage<Collection> add(final Collection collection) {return collectionRepository.add(collection);}
+
+    public Collection getDummy() {
+        final Collection collection = new Collection();
+        collection.setId(1l);
+        collection.setName("Addition");
+        collection.setTopic("Mathe");
+        collection.setDescription("Simple Addition");
+        return collection;
+    }
 }
