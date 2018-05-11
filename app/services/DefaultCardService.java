@@ -29,7 +29,7 @@ public class DefaultCardService implements CardService {
 
     public Card getDummy() {
         final Card card = new Card();
-        card.setId(1l);
+        //card.setId(1l);
         card.setQuestion("was gibt 2 + 2?");
         card.setAnswer("4");
         return card;
