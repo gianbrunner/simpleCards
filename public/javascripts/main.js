@@ -22,6 +22,7 @@ $(function(){
 });
 
 function card(context) {
+//Collection abfragen
     var collectionUrl = '/api/collections/dummy';
     var cardUrl = '/api/cards/dummy';
     $.ajax({
@@ -29,17 +30,18 @@ function card(context) {
         type: "GET",
         dataType : "json"
     }).done(function(json) {
+//Cards für jede Collection erzeugen
         console.log(json);
         context.render('/assets/html/cards.html', {})
             .appendTo(context.$element())
             .then(function () {
                 json = $.makeArray(json);
                 $.each(json, function(index, value) {
-                    var card =  '<div class="card"> +
-                                '<h5 class="card-title">'+ value.title +'</h5>' +
-                                '<h5 class="card-title">'+ value.topic +'</h5>' +
-                                '<h5 class="card-title">'+ value.topic +'</h5>' +
-                    '</div>';
+                    var card =  '<div class="card"><ul class="list-group list-group-flush">' +
+                                '<li class="list-group-item">'+ value.title +'</li>' +
+                                '<li class="list-group-item">'+ value.topic +'</li>' +
+                                '<li class="list-group-item">'+ value.description +'</li>' +
+                    '</ul></div>';
                     $(".cards").append(card);
                 });
             });
