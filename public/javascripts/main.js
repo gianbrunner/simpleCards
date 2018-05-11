@@ -37,15 +37,33 @@ function card(context) {
             .then(function () {
                 json = $.makeArray(json);
                 $.each(json, function(index, value) {
-                    var card =  '<div class="card"><ul class="list-group list-group-flush">' +
-                                '<li class="list-group-item">'+ value.title +'</li>' +
+                    var card =  '<div class="card" style="width: 20rem;">'+
+                                '<div class="card-header">'+ value.name +'</div>' +
+                                '<ul class="list-group list-group-flush">' +
                                 '<li class="list-group-item">'+ value.topic +'</li>' +
                                 '<li class="list-group-item">'+ value.description +'</li>' +
-                    '</ul></div>';
+                                '</ul></div>';
                     $(".cards").append(card);
                 });
             });
     });
+//Frage-&Antwortfeld
+    context.render('/assets/html/homepage.html', {})
+        .appendTo(context.$element())
+        .then(function () {
+            var frageAntwort =  '<form>' +
+                                '<div class="form-group">' +
+                                '<input type="text" class="form-control" id="colQuestion" placeholder="Name">' +
+                                '</div>' +
+                                '<div class="form-group">' +
+                                '<textarea class="form-control" id="colAnswer" placeholder="Beschreibung" rows="4"></textarea>' +
+                                '</div>' +
+                                '<div id="popup">Kartei wurde angelegt</div>' +
+                                '<button id="colSubmit" type="submit" class="btn btn-info">Anlegen</button>' +
+                                '</form>';
+
+                $(".cards").append(frageAntwort);
+        });
 }
 
 function collection(context) {
