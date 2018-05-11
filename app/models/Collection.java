@@ -10,8 +10,8 @@ public class Collection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany
-    private List<Card> cards;
+//    @OneToMany
+//    private List<Card> cards;
     private String name;
     private String topic;
     private String description;
@@ -48,11 +48,11 @@ public class Collection {
         this.description = description;
     }
 
-    public List<Card> getCards() {
-        return cards;
-    }
-
-    public void setCards(List<Card> cards) {
-        this.cards = cards;
-    }
+//    public List<Card> getCards() {
+//        return cards;
+//    }
+//
+//    public void setCards(List<Card> cards) {
+//        this.cards = cards;
+//    }
 }

@@ -10,9 +10,7 @@ public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne
-    private Collection collection;
+    private Long fk_id;
     private String question;
     private String answer;
 
@@ -40,11 +38,7 @@ public class Card {
         this.answer = answer;
     }
 
-    public Collection getCollection() {
-        return collection;
-    }
+    public Long getFk_id() { return fk_id; }
 
-    public void setCollection(Collection collection) {
-        this.collection = collection;
-    }
+    public void setFk_id(Long fk_id) { this.fk_id = fk_id; }
 }

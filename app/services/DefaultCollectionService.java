@@ -32,7 +32,6 @@ public class DefaultCollectionService implements CollectionService {
 
     public Collection getDummy() {
         final Collection collection = new Collection();
-        collection.setId(1l);
         collection.setName("Addition");
         collection.setTopic("Mathe");
         collection.setDescription("Simple Addition");

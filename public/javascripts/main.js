@@ -109,22 +109,22 @@ function colAdd() {
         topic: colTopic,
         description: colDescr
     };
-    console.log(col);
     // let ref = $('#colSubmit');
     // let popup = $('#popper');
     // popup.show();
     // var popper = new Popper(ref, popup, {
     //     placement: 'right'
     // });
-    console.log(JSON.stringify(col));
-    var url = '/api/collections';
+    col = JSON.stringify(col);
+    console.log(col);
+    var url = '/api/cards';
     $.ajax({
         url: url,
-        data: JSON.stringify(col),
+        data: col,
         method: "POST",
         dataType: "json"
     }).done(function (json) {
-
+        console.log("done");
     });
 }
 
