@@ -117,12 +117,13 @@ function colAdd() {
     // });
     col = JSON.stringify(col);
     console.log(col);
-    var url = '/api/cards';
+    var url = '/api/collections';
     $.ajax({
         url: url,
         data: col,
         method: "POST",
-        dataType: "json"
+        dataType: "json",
+        contentType: "json"
     }).done(function (json) {
         console.log("done");
     });
