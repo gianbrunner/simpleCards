@@ -69,7 +69,13 @@ function collection(context) {
 }
 
 function homepage(context) {
-
+ asdasd
+    asd
+    asd
+    asd
+    asd
+    asd
+    asd
 }
 
 function learn(context) {
