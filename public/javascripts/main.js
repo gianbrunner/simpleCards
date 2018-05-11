@@ -66,33 +66,10 @@ function collection(context) {
                 });
             });
     });
-    /*asgasg
-    sdg
-
-
-    static s
-
-
-
-    sggs
-
-
-    sg
-    sg
-    gs
-    g
-    sg*/
-
 }
 
 function homepage(context) {
- asdasd
-    asd
-    asd
-    asd
-    asd
-    asd
-    asd
+
 }
 
 function learn(context) {
