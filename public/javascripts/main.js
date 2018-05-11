@@ -1,9 +1,9 @@
-var app = $.sammy('#app', function () {          // definiert neue Sammy application und bindet diese an #app
-    this.get('#/card', function (context) {     // neue route
+var app = $.sammy('#app', function() {          // definiert neue Sammy application und bindet diese an #app
+    this.get('#/card', function(context) {     // neue route
         context.app.swap('');                   // ersetzt den Inhalt vom app Element mit ''
         card(context);
     });
-    this.get('#/collection', function (context) {
+    this.get('#/collection', function(context) {
         context.app.swap('');
         collection(context);
     });
@@ -17,7 +17,7 @@ var app = $.sammy('#app', function () {          // definiert neue Sammy applica
     });
 });
 
-$(function () {
+$(function(){
     app.run("#/home");
 });
 
@@ -27,19 +27,19 @@ function card(context) {
     $.ajax({
         url: collectionUrl,
         type: "GET",
-        dataType: "json"
-    }).done(function (json) {
+        dataType : "json"
+    }).done(function(json) {
         console.log(json);
         context.render('/assets/html/cards.html', {})
             .appendTo(context.$element())
             .then(function () {
                 json = $.makeArray(json);
-                $.each(json, function (index, value) {
-                    var card = '<div class="card">' +
-                        '<h5 class="card-title">' + value.title + '</h5>' +
-                        '<h5 class="card-title">' + value.topic + '</h5>' +
-                        '<h5 class="card-title">' + value.topic + '</h5>' +
-                        '</div>';
+                $.each(json, function(index, value) {
+                    var card =  '<div class="card">' +
+                                '<h5 class="card-title">'+ value.title +'</h5>' +
+                                '<h5 class="card-title">'+ value.topic +'</h5>' +
+                                '<h5 class="card-title">'+ value.topic +'</h5>' +
+                    '</div>';
                     $(".cards").append(card);
                 });
             });
@@ -114,7 +114,6 @@ function homepage(context) {
             $(".home").append(jumbotron);
         });
 }
-
 function learn(context) {
 
 }
