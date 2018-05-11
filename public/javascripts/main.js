@@ -22,9 +22,10 @@ $(function(){
 });
 
 function card(context) {
-    var url = '/api/cards/dummy';
+    var collectionUrl = '/api/collections/dummy';
+    var cardUrl = '/api/cards/dummy';
     $.ajax({
-        url: url,
+        url: collectionUrl,
         type: "GET",
         dataType : "json"
     }).done(function(json) {
@@ -34,9 +35,9 @@ function card(context) {
             .then(function () {
                 json = $.makeArray(json);
                 $.each(json, function(index, value) {
-                    var card = '<div class="card col-sm"><div class="card-body">' +
-                        '<h5 class="card-title">'+ value.question +'</h5>' +
-                        '<h5 class="card-title">'+ value.answer +'</h5>' +
+                    var card =  '<div class="card col-sm"><div class="card-body">' +
+                                '<h5 class="card-title">'+ value.question +'</h5>' +
+                                '<h5 class="card-title">'+ value.answer +'</h5>' +
                     '</div></div>';
                     $(".cards").append(card);
                 });
@@ -69,9 +70,19 @@ function collection(context) {
 }
 
 function homepage(context) {
-
+    context.render('/assets/html/homepage.html', {})
+        .appendTo(context.$element())
+        .then(function () {
+            var jumbotron = '<div class="jumbotron">' +
+                '<h1 class="diplay-3">Willkommen bei simpleCards!</h1>' +
+                '<p class="lead">Diese Webapplikation hilft dir, Karteikarten zu erstellen, zu ordnen und zu lernen, ganz ohne Papier.</p>' +
+                '<hr class="my-4">' +
+                '<p class="lead">Du kannst problemlos mehrere Karteien zu deinen Schulfächern erstellen, diese mit Karten füllen und dich dann selbst abfragen. Klingt einfach, ist es auch!</p>' +
+                '<a class="btn btn-primary btn-lg" href="#/collection" role="button">Jetzt beginnen</a>' +
+                '</div>';
+            $(".home").append(jumbotron);
+        });
 }
-
 function learn(context) {
 
 }
