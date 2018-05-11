@@ -35,7 +35,7 @@ function card(context) {
             .then(function () {
                 json = $.makeArray(json);
                 $.each(json, function(index, value) {
-                    var card =  '<div class="card"> +
+                    var card =  '<div class="card">' +
                                 '<h5 class="card-title">'+ value.title +'</h5>' +
                                 '<h5 class="card-title">'+ value.topic +'</h5>' +
                                 '<h5 class="card-title">'+ value.topic +'</h5>' +
