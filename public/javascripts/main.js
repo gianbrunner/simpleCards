@@ -103,17 +103,18 @@ function colAdd() {
         description: colDescr
     };
     console.log(col);
-    let ref = $('#colSubmit');
-    let popup = $('#popper');
-    /*popup.show();
-    var popper = new Popper(ref, popup, {
-        placement: 'right'
-    });*/
+    // let ref = $('#colSubmit');
+    // let popup = $('#popper');
+    // popup.show();
+    // var popper = new Popper(ref, popup, {
+    //     placement: 'right'
+    // });
+    console.log(JSON.stringify(col));
     var url = '/api/collections';
     $.ajax({
         url: url,
-        data: col,
-        type: "POST",
+        data: JSON.stringify(col),
+        method: "POST",
         dataType: "json"
     }).done(function (json) {
 

@@ -2,12 +2,14 @@
 
 # --- !Ups
 
-create table card (
+CREATE TABLE collection (
   id bigint(20) NOT NULL AUTO_INCREMENT,
-  title varchar(255),
+  name VARCHAR (255),
+  topic VARCHAR (255),
+  description VARCHAR (255),
   PRIMARY KEY (id)
 );
 
 # --- !Downs
 
-drop table card;
+DROP TABLE collection;

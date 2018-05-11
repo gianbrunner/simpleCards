@@ -1,17 +1,18 @@
 package models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.ManyToAny;
 
-@Entity (name = "card")
+import javax.persistence.*;
+
+@Entity(name = "card")
 public class Card {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    private Collection collection;
     private String question;
     private String answer;
 
@@ -37,5 +38,13 @@ public class Card {
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+
+    public Collection getCollection() {
+        return collection;
+    }
+
+    public void setCollection(Collection collection) {
+        this.collection = collection;
     }
 }
