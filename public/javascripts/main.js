@@ -35,9 +35,11 @@ function card(context) {
         context.render('/assets/html/cards.html', {})
             .appendTo(context.$element())
             .then(function(){
-                var layout =    '<div class="container">'+
-                                '<div class="row" id="chooseCollection"></div>'+
-                                '<div class="row" id="questionAnswer"></div>'+
+                var layout =    '<div class="container" id="chooseCollection">'+
+                                '<h2>Kartei auswählen</h2>'+
+                                '</div>'+
+                                '<div class="container" id="questionAnswer">'+
+                                '<h2>Frage und Antwort formulieren</h2>'+
                                 '</div>';
                 $(".cards").append(layout);
             })
@@ -45,7 +47,7 @@ function card(context) {
             .then(function () {
                 json = $.makeArray(json);
                 $.each(json, function(index, value) {
-                    var card =  '<div class="col-sm">'+
+                    var card =  '<div class="col-sm-6 col-lg-3">'+
                                 '<div class="card" id="'+ value.id +'">'+
                                 '<div class="card-header">'+ value.name +'</div>' +
                                 '<ul class="list-group list-group-flush">' +
@@ -57,10 +59,7 @@ function card(context) {
             })
 //Frage und Antwort erzeugen
             .then(function () {
-                var questionAnswer ='<div class="container>'+
-                                    '<div class="row>'+
-                                    '<div class="col-sm>'+
-                                    '<form>' +
+                var questionAnswer ='<form>' +
                                     '<div class="form-group">' +
                                     '<input type="text" class="form-control" id="colQuestion" placeholder="Frage">' +
                                     '</div>' +
@@ -68,7 +67,7 @@ function card(context) {
                                     '<input type="text" class="form-control" id="colAnswer" placeholder="Antwort">' +
                                     '</div>' +
                                     '<button id="colSubmit" type="submit" class="btn btn-info">Anlegen</button>' +
-                                    '</form></div></div></div>';
+                                    '</form>';
                     $("#questionAnswer").append(questionAnswer);
             });
     });
