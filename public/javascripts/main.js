@@ -35,10 +35,11 @@ function card(context) {
             .then(function () {
                 json = $.makeArray(json);
                 $.each(json, function(index, value) {
-                    var card =  '<div class="card col-sm"><div class="card-body">' +
-                                '<h5 class="card-title">'+ value.question +'</h5>' +
-                                '<h5 class="card-title">'+ value.answer +'</h5>' +
-                    '</div></div>';
+                    var card =  '<div class="card"> +
+                                '<h5 class="card-title">'+ value.title +'</h5>' +
+                                '<h5 class="card-title">'+ value.topic +'</h5>' +
+                                '<h5 class="card-title">'+ value.topic +'</h5>' +
+                    '</div>';
                     $(".cards").append(card);
                 });
             });
