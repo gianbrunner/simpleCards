@@ -67,37 +67,30 @@ function card(context) {
 }
 
 function collection(context) {
-    var url = '/api/collections/dummy';
-    $.ajax({
-        url: url,
-        type: "GET",
-        dataType : "json"
-    }).done(function(json) {
-        context.render('/assets/html/collections.html', {})
-            .appendTo(context.$element())
-            .then(function () {
-                let layout =
-                    '<h2 class="title">Kartei anlegen</h2>' +
-                    '<form>' +
-                    '<div class="form-group">' +
-                    '<input type="text" class="form-control" id="colName" placeholder="Name">' +
-                    '</div>' +
-                    '<div class="form-group">' +
-                    '<input type="text" class="form-control" id="colTopic" placeholder="Thema">' +
-                    '</div>' +
-                    '<div class="form-group">' +
-                    '<textarea class="form-control" id="colDescr" placeholder="Beschreibung" rows="4"></textarea>' +
-                    '</div>' +
-                    '<div id="popup">Kartei wurde angelegt</div>' +
-                    '<button id="colSubmit" type="submit" class="btn btn-info">Anlegen</button>' +
-                    '</form>';
-                $(".collections").append(layout);
-                $('#popup').hide();
-            })
-            .then(function(){
-                document.getElementById('colSubmit').addEventListener('click', colAdd);
-            });
-    });
+    context.render('/assets/html/collections.html', {})
+        .appendTo(context.$element())
+        .then(function () {
+            let layout =
+                '<h2 class="title">Kartei anlegen</h2>' +
+                '<form>' +
+                '<div class="form-group">' +
+                '<input type="text" class="form-control" id="colName" placeholder="Name">' +
+                '</div>' +
+                '<div class="form-group">' +
+                '<input type="text" class="form-control" id="colTopic" placeholder="Thema">' +
+                '</div>' +
+                '<div class="form-group">' +
+                '<textarea class="form-control" id="colDescr" placeholder="Beschreibung" rows="4"></textarea>' +
+                '</div>' +
+                '<div id="popup">Kartei wurde angelegt</div>' +
+                '<button id="colSubmit" type="submit" class="btn btn-info">Anlegen</button>' +
+                '</form>';
+            $(".collections").append(layout);
+            $('#popup').hide();
+        })
+        .then(function () {
+            document.getElementById('colSubmit').addEventListener('click', colAdd);
+        });
 }
 
 function colAdd() {
@@ -107,7 +100,7 @@ function colAdd() {
     let col = {
         name: colName,
         topic: colTopic,
-        descr: colDescr
+        description: colDescr
     };
     console.log(col);
     let ref = $('#colSubmit');
@@ -116,13 +109,13 @@ function colAdd() {
     var popper = new Popper(ref, popup, {
         placement: 'right'
     });*/
-    var url = '/api/collections/';
+    var url = '/api/collections';
     $.ajax({
         url: url,
         data: col,
         type: "POST",
-        dataType : "json"
-    }).done(function(json) {
+        dataType: "json"
+    }).done(function (json) {
 
     });
 }

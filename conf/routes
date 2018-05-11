@@ -4,7 +4,7 @@
 #
 # Card Routes
 GET     /api/cards      controllers.CardController.getCards
-POST    /api/cards/     controllers.CardController.createNewCard
+POST    /api/cards      controllers.CardController.createNewCard
 # dummy muss vor Get's mit ID kommen, da sonst play versucht dummy in Long zu wandeln
 GET     /api/cards/dummy    controllers.CardController.dummy
 GET     /api/cards/:id  controllers.CardController.getCard(id: Long)
@@ -12,7 +12,7 @@ DELETE  /api/cards/:id  controllers.CardController.deleteCard(id: Long)
 
 # Collection Routes
 GET     /api/collections         controllers.CollectionController.getCollections
-POST    /api/collections/        controllers.CollectionController.createNewCollection
+POST    /api/collections         controllers.CollectionController.createNewCollection
 GET     /api/collections/dummy   controllers.CollectionController.dummy
 GET     /api/collections/:id     controllers.CollectionController.getCollection(id: Long)
 DELETE  /api/collections/:id     controllers.CollectionController.deleteCollection(id: Long)
