@@ -4,8 +4,8 @@ function card(context) {
     var cardUrl = '/api/cards/dummy';
     $.ajax({
         url: collectionUrl,
-        type: "GET",
-        dataType : "json"
+        method: "GET",
+        contentType: "application/json"
     }).done(function(json) {
 //Layout erzeugen
         console.log(json);
