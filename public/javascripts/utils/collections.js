@@ -47,8 +47,7 @@ function colAdd() {
         url: url,
         data: col,
         method: "POST",
-        dataType: "json",
-        contentType: "json"
+        contentType: "application/json"
     }).done(function (json) {
         console.log("done");
     });
