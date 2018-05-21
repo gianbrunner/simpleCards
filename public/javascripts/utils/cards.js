@@ -38,14 +38,39 @@ function card(context) {
             .then(function () {
                 var questionAnswer ='<form>' +
                     '<div class="form-group">' +
-                    '<input type="text" class="form-control" id="colQuestion" placeholder="Frage">' +
+                    '<input type="text" class="form-control" id="cardQuestion" placeholder="Frage">' +
                     '</div>' +
                     '<div class="form-group">' +
-                    '<input type="text" class="form-control" id="colAnswer" placeholder="Antwort">' +
+                    '<input type="text" class="form-control" id="cardAnswer" placeholder="Antwort">' +
                     '</div>' +
-                    '<button id="colSubmit" type="submit" class="btn btn-info">Anlegen</button>' +
+                    '<button id="cardSubmit" type="submit" class="btn btn-info">Anlegen</button>' +
                     '</form>';
                 $("#questionAnswer").append(questionAnswer);
+            })
+            .then(function (){
+                document.getElementById('cardSubmit').addEventListener('click', cardAdd);
             });
+    });
+}
+function cardAdd() {
+    let topic = $('#colName').val();
+    let question = $('#cardQuestion').val();
+    let answer = $('#cardAnswer').val();
+    let card = {
+        fk_id: topic,
+        question: question,
+        answer: answer
+    };
+    card = JSON.stringify(card);
+    console.log(card);
+    var url = '/api/cards';
+    $.ajax({
+        url: url,
+        data: card,
+        method: "POST",
+        dataType: "json",
+        contentType: "json"
+    }).done(function (json) {
+        console.log("done");
     });
 }
