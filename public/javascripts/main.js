@@ -26,6 +26,4 @@ $(function(){
 
 
 
-function learn(context) {
 
-}

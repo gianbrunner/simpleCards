@@ -4,21 +4,22 @@ function collection(context) {
         .then(function () {
             let layout =
                 '<h2 class="title">Kartei anlegen</h2>' +
-                '<form>' +
+                '<form class="needs-validation" autocomplete="off">' +
                 '<div class="form-group">' +
-                '<input type="text" class="form-control" id="colName" placeholder="Name">' +
+                '<input required type="text" class="form-control" id="colName" placeholder="Name">' +
                 '</div>' +
                 '<div class="form-group">' +
-                '<input type="text" class="form-control" id="colTopic" placeholder="Thema">' +
+                '<input required type="text" class="form-control" id="colTopic" placeholder="Thema">' +
                 '</div>' +
                 '<div class="form-group">' +
-                '<textarea class="form-control" id="colDescr" placeholder="Beschreibung" rows="4"></textarea>' +
+                '<textarea required class="form-control" id="colDescr" placeholder="Beschreibung" rows="4"></textarea>' +
                 '</div>' +
-                '<div id="popup">Kartei wurde angelegt</div>' +
-                '<button id="colSubmit" type="submit" class="btn btn-info">Anlegen</button>' +
+                '<button id="colSubmit" type="submit" class="btn btn-info"' +
+                'data-toggle="popover" data-placement="right" data-content="Kartei wurde angelegt"' +
+                '>Anlegen</button>' +
                 '</form>';
             $(".collections").append(layout);
-            $('#popup').hide();
+            $('#colSubmit').popover('hide');
         })
         .then(function () {
             document.getElementById('colSubmit').addEventListener('click', colAdd);
@@ -34,21 +35,40 @@ function colAdd() {
         topic: colTopic,
         description: colDescr
     };
-    // let ref = $('#colSubmit');
-    // let popup = $('#popper');
-    // popup.show();
-    // var popper = new Popper(ref, popup, {
-    //     placement: 'right'
-    // });
-    col = JSON.stringify(col);
-    console.log(col);
+    validation(col);
     var url = '/api/collections';
     $.ajax({
         url: url,
-        data: col,
+        data: JSON.stringify(col),
         method: "POST",
         contentType: "application/json"
     }).done(function (json) {
         console.log("done");
+        $('#colSubmit').popover('show');
+        setTimeout(function() {
+            $('#colSubmit').popover('hide');
+            app.setLocation("#/collection");
+        }, 1000);
+    });
+}
+
+function validation(collection) {
+    $('form.needs-validation')[0].addEventListener('invalid', function(e) {
+        if(colExists(collection.name)){
+            e.setCustomValidity('Karteiname existiert bereits');
+        }
+    })
+
+}
+
+function colExists(name) {
+    $.ajax({
+        url: '/api/collections',
+        method: 'GET'
+    }).done(function (json) {
+        json.forEach(function(col) {
+            if(col.name.equals(name)) return true;
+        })
+        return false;
     });
 }
