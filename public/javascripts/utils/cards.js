@@ -1,7 +1,7 @@
 function card(context) {
 //Collection abfragen
-    var collectionUrl = '/api/collections/dummy';
-    var cardUrl = '/api/cards/dummy';
+    var collectionUrl = '/api/collections';
+    var cardUrl = '/api/cards';
     $.ajax({
         url: collectionUrl,
         method: "GET",
@@ -23,12 +23,13 @@ function card(context) {
             //Liste erzeugen
             .then(function(){
                 json = $.makeArray(json);
-                var list =  '<select class="cusom-select" id="collectionList">'+
+                var list =  '<form><div class="form-group">'+
+                            '<select class="form-control" id="collectionList">'+
                             '<option selected>Bitte Kartei auswählen</option>'+
-                            '</select>';
+                            '</select></div></form>';
                             $("#chooseCollection").append(list);
                 $.each(json, function(index, value){
-                    var option = '<option value ="'+ value.id +'">'+ value.topic +'</option>';
+                    var option = '<option value="'+ value.id +'">'+ value.name +'</option>';
                     $("#collectionList").append(option);
                 });
             })
@@ -52,10 +53,10 @@ function card(context) {
     });
 }
 function cardAdd() {
-    let name = $('#colName').val();
-    let question = $('#cardQuestion').val();
-    let answer = $('#cardAnswer').val();
-    let card = {
+    var name = $('#collectionList').val();
+    var question = $('#cardQuestion').val();
+    var answer = $('#cardAnswer').val();
+    var card = {
         fk_id: name,
         question: question,
         answer: answer
@@ -67,7 +68,7 @@ function cardAdd() {
         url: url,
         data: card,
         method: "POST",
-        dataType: "json",
+        dataType: "application/json",
         contentType: "json"
     }).done(function (json) {
         console.log("done");
