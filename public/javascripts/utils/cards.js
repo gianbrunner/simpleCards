@@ -20,20 +20,19 @@ function card(context) {
                     '</div>';
                 $(".cards").append(layout);
             })
-            //Cards für jede Collection erzeugen
-            .then(function () {
+            //Liste erzeugen
+            .then(function(){
                 json = $.makeArray(json);
-                $.each(json, function(index, value) {
-                    var card =  '<div class="col-sm-6 col-lg-3">'+
-                        '<div class="card" id="'+ value.id +'">'+
-                        '<div class="card-header">'+ value.name +'</div>' +
-                        '<ul class="list-group list-group-flush">' +
-                        '<li class="list-group-item">'+ value.topic +'</li>' +
-                        '<li class="list-group-item">'+ value.description +'</li>' +
-                        '</ul></div></div>';
-                    $("#chooseCollection").append(card);
+                var list =  '<select class="cusom-select" id="collectionList">'+
+                            '<option selected>Bitte Kartei auswählen</option>'+
+                            '</select>';
+                            $("#chooseCollection").append(list);
+                $.each(json, function(index, value){
+                    var option = '<option value ="'+ value.id +'">'+ value.topic +'</option>';
+                    $("#collectionList").append(option);
                 });
             })
+
             //Frage und Antwort erzeugen
             .then(function () {
                 var questionAnswer ='<form>' +
@@ -53,11 +52,11 @@ function card(context) {
     });
 }
 function cardAdd() {
-    let topic = $('#colName').val();
+    let name = $('#colName').val();
     let question = $('#cardQuestion').val();
     let answer = $('#cardAnswer').val();
     let card = {
-        fk_id: topic,
+        fk_id: name,
         question: question,
         answer: answer
     };
