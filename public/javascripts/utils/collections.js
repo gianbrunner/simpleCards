@@ -4,15 +4,15 @@ function collection(context) {
         .then(function () {
             let layout =
                 '<h2 class="title">Kartei anlegen</h2>' +
-                '<form class="needs-validation" autocomplete="off">' +
+                '<form id="validation" autocomplete="off"> novalidate' +
                 '<div class="form-group">' +
-                '<input required type="text" class="form-control" id="colName" placeholder="Name">' +
+                '<input type="text" class="form-control" id="colName" placeholder="Name" onchange="validateName()">' +
                 '</div>' +
                 '<div class="form-group">' +
-                '<input required type="text" class="form-control" id="colTopic" placeholder="Thema">' +
+                '<input type="text" class="form-control" id="colTopic" placeholder="Thema" onchange="validateTopic()">' +
                 '</div>' +
                 '<div class="form-group">' +
-                '<textarea required class="form-control" id="colDescr" placeholder="Beschreibung" rows="4"></textarea>' +
+                '<textarea class="form-control" id="colDescr" placeholder="Beschreibung" rows="4" onchange="validateDescr()"></textarea>' +
                 '</div>' +
                 '<button id="colSubmit" type="submit" class="btn btn-info"' +
                 'data-toggle="popover" data-placement="right" data-content="Kartei wurde angelegt"' +
@@ -35,40 +35,67 @@ function colAdd() {
         topic: colTopic,
         description: colDescr
     };
-    validation(col);
-    var url = '/api/collections';
-    $.ajax({
-        url: url,
-        data: JSON.stringify(col),
-        method: "POST",
-        contentType: "application/json"
-    }).done(function (json) {
-        console.log("done");
-        $('#colSubmit').popover('show');
-        setTimeout(function() {
-            $('#colSubmit').popover('hide');
-            app.setLocation("#/collection");
-        }, 1000);
-    });
+
+    colNameExists(col.name);
+
+    // send form data when okay
+    if($('#validation')[0].checkValidity()) {
+        var url = '/api/collections';
+        $.ajax({
+            url: url,
+            data: JSON.stringify(col),
+            method: "POST",
+            contentType: "application/json"
+        }).done(function (json) {
+            console.log("done");
+            $('#colSubmit').popover('show');
+            setTimeout(function() {
+                $('#colSubmit').popover('hide');
+                app.setLocation("#/collection");
+            }, 1000);
+        });
+    }
 }
 
-function validation(collection) {
-    $('form.needs-validation')[0].addEventListener('invalid', function(e) {
-        if(colExists(collection.name)){
-            e.setCustomValidity('Karteiname existiert bereits');
-        }
-    })
+function validateName() {
+    let colName = $('#colName').val();
+    if(colName.length == 0) {
+        $('#colName').append('<div class="invalid-feedback">Name muss gesetzt werden</div>');
+    }
+    // ajax request nicht nach jedem Change ausführen
 
 }
 
-function colExists(name) {
+function validateTopic() {
+
+}
+
+function validateDescr() {
+
+}
+
+
+function colNameExists(colName) {
     $.ajax({
         url: '/api/collections',
         method: 'GET'
     }).done(function (json) {
-        json.forEach(function(col) {
-            if(col.name.equals(name)) return true;
+        json.forEach((element) => {
+            if(colName === element.name) {
+                console.log('exist');
+                $('#colName').className = 'form-control is-invalid';
+            }
+            else {
+                console.log('not exist');
+                $('#colName').className = 'form-control';
+            }
         })
-        return false;
     });
 }
+
+/*
+    TODO: HTML5 validierungen rausschmeissen und nur javascript
+    TODO: eventlistener
+    TODO: validierung mit änderungen anpassen
+    TODO: Custom nachricht nicht gut
+ */
