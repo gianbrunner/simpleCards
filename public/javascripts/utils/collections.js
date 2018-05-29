@@ -1,8 +1,16 @@
 function collection(context) {
+    let colJson;
     context.render('/assets/html/collections.html', {})
         .appendTo(context.$element())
         .then(function () {
+            colJson = getCollections();
+        })
+        .then(function () {
             let layout =
+                '<div class="container" id="chooseCollection">' +
+                '<h2>Vorhandene Karteien</h2>' +
+                '</div>' +
+                '<div class="container" id="addCollection">' +
                 '<h2 class="title">Kartei anlegen</h2>' +
                 '<form id="validation" autocomplete="off"> novalidate' +
                 '<div class="form-group">' +
@@ -17,7 +25,17 @@ function collection(context) {
                 '<button id="colSubmit" type="submit" class="btn btn-info"' +
                 'data-toggle="popover" data-placement="right" data-content="Kartei wurde angelegt"' +
                 '>Anlegen</button>' +
-                '</form>';
+                '</form>' +
+                '</div>';
+            let list = '<form><div class="form-group">' +
+                '<select class="form-control" id="collectionList">' +
+                '<option selected>Bitte Kartei auswählen</option>' +
+                '</select></div></form>';
+            $("#chooseCollection").append(list);
+            $.each(colJson, function (index, value) {
+                let option = '<option value="' + value.id + '">' + value.name + '</option>';
+                $("#collectionList").append(option);
+            });
             $(".collections").append(layout);
             $('#colSubmit').popover('hide');
         })
@@ -39,7 +57,7 @@ function colAdd() {
     colNameExists(col.name);
 
     // send form data when okay
-    if($('#validation')[0].checkValidity()) {
+    if ($('#validation')[0].checkValidity()) {
         var url = '/api/collections';
         $.ajax({
             url: url,
@@ -49,7 +67,7 @@ function colAdd() {
         }).done(function (json) {
             console.log("done");
             $('#colSubmit').popover('show');
-            setTimeout(function() {
+            setTimeout(function () {
                 $('#colSubmit').popover('hide');
                 app.setLocation("#/collection");
             }, 1000);
@@ -59,7 +77,7 @@ function colAdd() {
 
 function validateName() {
     let colName = $('#colName').val();
-    if(colName.length == 0) {
+    if (colName.length == 0) {
         $('#colName').append('<div class="invalid-feedback">Name muss gesetzt werden</div>');
     }
     // ajax request nicht nach jedem Change ausführen
@@ -81,7 +99,7 @@ function colNameExists(colName) {
         method: 'GET'
     }).done(function (json) {
         json.forEach((element) => {
-            if(colName === element.name) {
+            if (colName === element.name) {
                 console.log('exist');
                 $('#colName').className = 'form-control is-invalid';
             }
@@ -90,6 +108,15 @@ function colNameExists(colName) {
                 $('#colName').className = 'form-control';
             }
         })
+    });
+}
+
+function getCollections() {
+    $.ajax({
+        url: '/api/collections',
+        method: 'GET'
+    }).done(function (json) {
+        return json;
     });
 }
 

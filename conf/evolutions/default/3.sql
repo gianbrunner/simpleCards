@@ -1,7 +1,6 @@
 #Tour SCHEMA
 
 # --- !Ups
-# --- Dummy collection for evaluation-purposes
 
 INSERT INTO collection (id, name, topic, description) VALUES (1, 'Englisch Woerter', 'Englisch', 'Woerter übersetzen');
 
