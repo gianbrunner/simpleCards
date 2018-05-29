@@ -44,8 +44,14 @@ function card(context) {
                     '<input type="text" class="form-control" id="cardAnswer" placeholder="Antwort">' +
                     '</div>' +
                     '<button id="cardSubmit" type="submit" class="btn btn-info">Anlegen</button>' +
+                    '<p id="colMessage">Bitte wählen Sie eine Kartei aus.</p>'+
+                    '<p id="questionMessage">Bitte geben Sie eine Frage ein.</p>'+
+                    '<p id="answerMessage">Bitte geben Sie eine Antwort ein.</p>'+
                     '</form>';
                 $("#questionAnswer").append(questionAnswer);
+                $("#colMessage").hide;
+                $("#questionMessage").hide;
+                $("#answerMessage").hide;
             })
             .then(function (){
                 document.getElementById('cardSubmit').addEventListener('click', cardAdd);
@@ -53,6 +59,7 @@ function card(context) {
     });
 }
 function cardAdd() {
+    checkFields();
     var name = $('#collectionList').val();
     var question = $('#cardQuestion').val();
     var answer = $('#cardAnswer').val();
@@ -68,9 +75,31 @@ function cardAdd() {
         url: url,
         data: card,
         method: "POST",
-        dataType: "application/json",
-        contentType: "json"
+        contentType: "application/json"
     }).done(function (json) {
         console.log("done");
     });
+}
+function checkFields() {
+    //Kartei kontrollieren
+    if ($('#collectionList').val() == 'Bitte Kartei auswählen') {
+        $("#colMessage").show();
+        $("#colMessage").css("color", "red");
+    } else {
+        $("#colMessage").hide();
+    }
+    //Frage kontrollieren
+    if ($('#cardQuestion').val() == null) {
+        $("#questionMessage").show();
+        $("#questionMessage").css("color", "red");
+    } else {
+        $("#questionMessage").hide();
+    }
+    //Antwort kontrollieren
+    if ($('#cardAnswer').val() == null) {
+        $("#answerMessage").show();
+        $("#answerMessage").css("color", "red");
+    } else {
+        $("#answerMessage").hide();
+    }
 }
