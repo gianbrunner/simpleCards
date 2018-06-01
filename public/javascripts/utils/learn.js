@@ -134,7 +134,8 @@ function showStatistic(correctAnswerCounter, answerAmount) {
     $("#statistic").append(table);
     //Tabelle füllen
     for(i = 0; i<answers.length; i++){
-        var row =   '<tr class="tableRow'+i+'"><th scope=row>'+ i+1 +'</th>'+
+        var temp = i+1;
+        var row =   '<tr id="tableRow'+i+'"><th scope=row>'+ temp +'</th>'+
                     '<td>'+ questions[i] +'</td>'+
                     '<td>'+ answers[i] +'</td>'+
                     '<td>'+ correctAnswers[i] +'</td>'+
@@ -142,16 +143,15 @@ function showStatistic(correctAnswerCounter, answerAmount) {
         $("#table").append(row);
         //Richtig/Falsch einfärben
         if(answers[i].toLowerCase() == correctAnswers[i].toLowerCase()){
-            $("#tableRow"+ i +"").css("background-color","green");
+            $("#tableRow"+ i).css("background-color","#ccffdd");
         }else{
-            $("#tableRow"+ i +"").css("background-color","red");
+            $("#tableRow"+ i).css("background-color","#ff6666");
         }
     }
     //theoretischer Notenschnitt berechnen
-    var grade = '<p>Bei einer Prüfung hätten Sie folgende Note erreicht: '+
-                 correctAnswerCounter/answerAmount*5  +
-                '</p>';
-    $("#statistic").append(grade);
+    var grade = correctAnswerCounter/answerAmount*5+1;
+    var gradeText = '<p>Bei einer Prüfung hätten Sie folgende Note erreicht: '+ grade  + '</p>';
+    $("#statistic").append(gradeText);
     //Button um "lernen" neuzustarten
     var startAgainButton = '<button type="button" class="btn btn-primary" id="startAgainButton">Nochmals lernen</button>';
     $("#statistic").append(startAgainButton);
@@ -161,7 +161,3 @@ function showStatistic(correctAnswerCounter, answerAmount) {
 function refresh(){
     location.reload();
 }
-
-//To do
-//Nummern in Tabelle / Note berechnen (+1)
-//Tabellenreihen einfärben
