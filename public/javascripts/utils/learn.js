@@ -54,7 +54,7 @@ function showQuestions(){
     questions = [];
     answers = [];
     correctAnswers = [];
-    //Gewählte Collection abfragen
+    //Cards abfragen
     var colID = $("#collectionList").val();
     $.ajax({
         url:'/api/cards',
@@ -150,12 +150,12 @@ function showStatistic(correctAnswerCounter, answerAmount) {
     }
     //theoretischer Notenschnitt berechnen
     var grade = correctAnswerCounter/answerAmount*5+1;
-    var gradeText = '<p>Bei einer Prüfung hätten Sie folgende Note erreicht: '+ grade  + '</p>';
+    var gradeText = '<p>Bei einer Prüfung hätten Sie folgende Note erreicht: '+ grade + '</p>';
     $("#statistic").append(gradeText);
     //Button um "lernen" neuzustarten
     var startAgainButton = '<button type="button" class="btn btn-primary" id="startAgainButton">Nochmals lernen</button>';
     $("#statistic").append(startAgainButton);
-        document.getElementById('startAgainButton').addEventListener('click', refresh);
+    document.getElementById('startAgainButton').addEventListener('click', refresh);
 }
 
 function refresh(){

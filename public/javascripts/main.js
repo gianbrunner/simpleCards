@@ -15,6 +15,10 @@ var app = $.sammy('#app', function() {          // definiert neue Sammy applicat
         context.app.swap('');
         learn(context);
     });
+    this.get('#/overview', function (context) {
+        context.app.swap('');
+        overview(context);
+    });
 });
 
 $(function(){
