@@ -150,7 +150,7 @@ function showStatistic(correctAnswerCounter, answerAmount) {
     }
     //theoretischer Notenschnitt berechnen
     var grade = correctAnswerCounter/answerAmount*5+1;
-    var gradeText = '<p>Bei einer Prüfung hätten Sie folgende Note erreicht: '+ grade + '</p>';
+    var gradeText = '<p>Bei einer Prüfung mit linearer Notenskala hätten Sie folgende Note erreicht: '+ grade + '</p>';
     $("#statistic").append(gradeText);
     //Button um "lernen" neuzustarten
     var startAgainButton = '<button type="button" class="btn btn-primary" id="startAgainButton">Nochmals lernen</button>';

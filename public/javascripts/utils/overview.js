@@ -27,10 +27,14 @@ function overview(context) {
                                 '<p class="card-text">Kategorie: '+ value.topic +
                                 '<br>Beschreibung: '+ value.description +'</p>'+
                                 '<button type="button" class="btn btn-primary" id="cardButton'+ value.id +'" value="'+value.id+'">Karten anzeigen</button>'+
+                                '<button type="button" class="btn btn-danger" id="deleteButton'+ value.id +'" value="'+value.id+'">Kartei löschen</button>'+
                                 '</div></div></div>';
                     $("#colOverview").append(card);
                     document.getElementById('cardButton'+ value.id +'').addEventListener('click', function(){
                         loadCards(value.id, value.name);
+                    });
+                    document.getElementById('deleteButton'+ value.id +'').addEventListener('click', function(){
+                        deleteCol(value.id);
                     });
                 });
             })
@@ -63,5 +67,15 @@ function loadCards(colID, colName){
                 $("#cardOverview").append(card);
             }
         });
+    });
+}
+
+function deleteCol(colID){
+    $.ajax({
+        url: '/api/collections/'+colID,
+        type: 'DELETE',
+        success: function(result) {
+            alert("Kartei gelöscht!");
+        }
     });
 }
