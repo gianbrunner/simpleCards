@@ -72,7 +72,7 @@ function loadCards(colID, colName){
         //Karten erzeugen
         $.each(json, function(index, value){
             if(value.fk_id == colID){
-                var card =  '<div class="col-sm-12 col-md-6 col-4"><div class="card"><div class="card-body">'+
+                var card =  '<div class="col-sm-12 col-md-6 col-4"><div class="card" id="cardNr'+ value.id +'"><div class="card-body">'+
                             '<h4 class="card-title">Karte Nr.: '+ value.id +'</h4>'+
                             '<p class="card-text">Frage: '+ value.question +
                             '<br>Antwort: '+ value.answer +'</p>'+
@@ -103,7 +103,7 @@ function deleteCard(cardID){
         url: '/api/cards/'+cardID,
         type: 'DELETE',
         success: function(result) {
-            alert("Karte gelöscht!");
+            $("#cardNr"+cardID).hide();
         }
     });
 }
