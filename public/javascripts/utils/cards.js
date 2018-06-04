@@ -44,7 +44,7 @@ function card(context) {
 
             //Frage und Antwort erzeugen
             .then(function () {
-                var questionAnswer = '<form>' +
+                var questionAnswer = '<form novalidate autocomplete="off">' +
                     '<div class="form-group">' +
                     '<input type="text" class="form-control" id="cardQuestion" placeholder="Frage">' +
                     '<div class="invalid-feedback">Bitte gib eine gültige Frage an</div>' +
@@ -117,12 +117,12 @@ function cardAdd() {
 }
 
 function validateQuestion() {
-    if ($('#cardQuestion').val().length < 3) $('#cardQuestion').addClass('is-invalid');
+    if ($('#cardQuestion').val().length < 1) $('#cardQuestion').addClass('is-invalid');
     else $('#cardQuestion').removeClass('is-invalid');
 }
 
 function validateAnswer() {
-    if ($('#cardAnswer').val().length < 3) $('#cardAnswer').addClass('is-invalid');
+    if ($('#cardAnswer').val().length < 1) $('#cardAnswer').addClass('is-invalid');
     else $('#cardAnswer').removeClass('is-invalid');
 }
 

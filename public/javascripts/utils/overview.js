@@ -28,7 +28,7 @@ function overview(context) {
             //Cards für Collections erzeugen
             .then(function () {
                 $.each(json, function (index, value) {
-                    var card =  '<div class="col-sm-12 col-lg-6"><div class="card"><div class="card-body">'+
+                    var card =  '<div class="col-sm-12 col-lg-6"><div class="card"  id="colNr'+ value.id +'"><div class="card-body">'+
                                 '<h4 class="card-title">'+ value.name +'</h4>'+
                                 '<p class="card-text">Kategorie: '+ value.topic +
                                 '<br>Beschreibung: '+ value.description +'</p>'+
@@ -88,12 +88,11 @@ function loadCards(colID, colName){
 }
 
 function deleteCol(colID){
-    alert("Kartei gelöscht!");
     $.ajax({
         url: '/api/collections/'+colID,
         type: 'DELETE',
         success: function(result) {
-            alert("Kartei gelöscht!");
+            $("#colNr"+colID).hide();
         }
     });
 }
