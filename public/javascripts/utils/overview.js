@@ -32,21 +32,17 @@ function overview(context) {
                                 '<h4 class="card-title">'+ value.name +'</h4>'+
                                 '<p class="card-text">Kategorie: '+ value.topic +
                                 '<br>Beschreibung: '+ value.description +'</p>'+
-                                '<div class="btn-group" role="group" aria-label="Basic example">'+
                                 '<button type="button" class="btn btn-primary" id="cardButton'+ value.id +'" value="'+value.id+'">Karten anzeigen</button>'+
                                 '<button type="button" class="btn btn-primary" id="learnButton'+ value.id +'" value="'+value.id+'">Kartei lernen</button>'+
-                                '</div>'+
-                                '<div class="btn-group" role="group" aria-label="Basic example">'+
                                 '<button type="button" class="btn btn-secondary" id="cardAddButton'+ value.id +'" value="'+value.id+'">Karte hinzufügen</button>'+
                                 '<button type="button" class="btn btn-danger" id="deleteButton'+ value.id +'" value="'+value.id+'">Kartei löschen</button>'+
-                                '</div>'+
                                 '</div></div></div>';
                     $("#colOverview").append(card);
                     document.getElementById('cardButton'+ value.id +'').addEventListener('click', function(){
                         loadCards(value.id, value.name);
                     });
                     document.getElementById('cardAddButton'+ value.id +'').addEventListener('click', function(){
-                        addCard();
+                        addCard(value.id);
                     });
                     document.getElementById('deleteButton'+ value.id +'').addEventListener('click', function(){
                         deleteCol(value.id);
@@ -116,8 +112,8 @@ function addCol(){
     window.location = '/#/collection';
 }
 
-function addCard(){
-    window.location = '/#/card';
+function addCard(colID){
+    window.location = '/#/card' + '?id=' + colID;
 }
 
 function learnCol(){

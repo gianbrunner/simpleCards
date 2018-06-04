@@ -1,3 +1,5 @@
+let colID;
+
 function card(context) {
 //Collection abfragen
     var collectionUrl = '/api/collections';
@@ -9,30 +11,34 @@ function card(context) {
     }).done(function (json) {
 //Layout erzeugen
         console.log(json);
+        colID = getCollectionID();
         context.render('/assets/html/cards.html', {})
             .appendTo(context.$element())
             .then(function () {
-                var layout = '<div class="container" id="chooseCollection">' +
-                    '<h2>Kartei auswählen</h2>' +
-                    '</div>' +
-                    '<div class="container" id="questionAnswer">' +
-                    '<h2>Frage und Antwort formulieren</h2>' +
-                    '</div>';
-                $(".cards").append(layout);
+                // var layout = '<div class="container" id="chooseCollection">' +
+                //     '<h2>Kartei auswählen</h2>' +
+                //     '</div>' +
+                //     '<div class="container" id="questionAnswer">' +
+                //     '<h2>Frage und Antwort formulieren</h2>' +
+                //     '</div>';
+                // var layout = '<div class="container" id="collection">' +
+                //     '<h3>Kartei auswählen</h3>' +
+                //     '</div>';
+                // $(".cards").append(layout);
             })
             //Liste erzeugen
             .then(function () {
                 json = $.makeArray(json);
-                var list = '<form><div class="form-group">' +
-                    '<select class="form-control" id="collectionList">' +
-                    '<option selected>Bitte Kartei auswählen</option>' +
-                    '</select>' +
-                    '<div class="invalid-feedback">Bitte wähle eine gültige Kartei aus</div>' +
-                    '</div></form>';
-                $("#chooseCollection").append(list);
                 $.each(json, function (index, value) {
-                    var option = '<option value="' + value.id + '">' + value.name + '</option>';
-                    $("#collectionList").append(option);
+                    if(colID == value.id) {
+                        var layout = '<div class="container" id="collection">' +
+                            '<h2>' + value.name + '</h2>' +
+                            '</div>' +
+                            '<div class="container" id="questionAnswer">' +
+                            '<h2>Frage und Antwort formulieren</h2>' +
+                            '</div>';
+                        $(".cards").append(layout);
+                    }
                 });
             })
 
@@ -61,7 +67,7 @@ function card(context) {
             })
             .then(function () {
                 document.getElementById('cardSubmit').addEventListener('click', cardAdd);
-                document.getElementById('collectionList').addEventListener('change', validateCollection);
+                //document.getElementById('collectionList').addEventListener('change', validateCollection);
                 document.getElementById('cardQuestion').addEventListener('change', validateQuestion);
                 document.getElementById('cardAnswer').addEventListener('change', validateAnswer);
             });
@@ -69,10 +75,10 @@ function card(context) {
 }
 
 function cardAdd() {
-    validateCollection();
+    //validateCollection();
     validateQuestion();
     validateAnswer();
-    var name = $('#collectionList').val();
+    var name = colID;
     var question = $('#cardQuestion').val();
     var answer = $('#cardAnswer').val();
     var card = {
@@ -96,7 +102,7 @@ function cardAdd() {
             setTimeout(function () {
                 $('#cardSubmit').popover('hide');
                 //$.sammy.refresh();
-                window.location = '/#/card'
+                window.location = '/#/card?id=' + colID;
             }, 1000);
         });
     }
@@ -123,6 +129,11 @@ function validateAnswer() {
 function validateCollection() {
     if ($('#collectionList').val() == 'Bitte Kartei auswählen') $('#collectionList').addClass('is-invalid');
     else $('#collectionList').removeClass('is-invalid');
+}
+
+function getCollectionID() {
+    let url = window.location.hash;
+    return url.substring(10);
 }
 
 // function checkFields() {
