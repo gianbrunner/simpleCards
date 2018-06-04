@@ -1,6 +1,3 @@
-// --- globale Variablen
-var colArray = [];
-var url = 'localhost:9000';
 // --- Methoden
 function overview(context) {
     //Collection abfragen
@@ -37,9 +34,13 @@ function overview(context) {
                                 '<br>Beschreibung: '+ value.description +'</p>'+
                                 '<div class="btn-group" role="group" aria-label="Basic example">'+
                                 '<button type="button" class="btn btn-primary" id="cardButton'+ value.id +'" value="'+value.id+'">Karten anzeigen</button>'+
+                                '<button type="button" class="btn btn-primary" id="learnButton'+ value.id +'" value="'+value.id+'">Kartei lernen</button>'+
+                                '</div>'+
+                                '<div class="btn-group" role="group" aria-label="Basic example">'+
                                 '<button type="button" class="btn btn-secondary" id="cardAddButton'+ value.id +'" value="'+value.id+'">Karte hinzufügen</button>'+
                                 '<button type="button" class="btn btn-danger" id="deleteButton'+ value.id +'" value="'+value.id+'">Kartei löschen</button>'+
-                                '</div></div></div></div>';
+                                '</div>'+
+                                '</div></div></div>';
                     $("#colOverview").append(card);
                     document.getElementById('cardButton'+ value.id +'').addEventListener('click', function(){
                         loadCards(value.id, value.name);
@@ -49,6 +50,9 @@ function overview(context) {
                     });
                     document.getElementById('deleteButton'+ value.id +'').addEventListener('click', function(){
                         deleteCol(value.id);
+                    });
+                    document.getElementById('learnButton'+ value.id +'').addEventListener('click', function(){
+                        learnCol();
                     });
                 });
             })
@@ -109,11 +113,13 @@ function deleteCard(cardID){
 }
 
 function addCol(){
-    var colUrl = 'http://'+ url + '/#/collection';
-    $(location).attr('href', colUrl);
+    window.location = '/#/collection';
 }
 
 function addCard(){
-    var cardUrl = 'http://'+ url + '/#/card';
-    $(location).attr('href', cardUrl);
+    window.location = '/#/card';
+}
+
+function learnCol(){
+    window.location = '/#/learn';
 }
