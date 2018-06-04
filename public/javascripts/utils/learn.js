@@ -17,6 +17,7 @@ function learn(context) {
     }).done(function(json) {
 //Layout erzeugen
         console.log(json);
+        colID = getCollectionID();
         context.render('/assets/html/learn.html', {})
             .appendTo(context.$element())
             .then(function () {
@@ -25,7 +26,10 @@ function learn(context) {
                     '</div>';
                 $(".learn").append(layout);
             })
-            //Liste erzeugen
+            .then(
+                showQuestions
+            );
+            /*//Liste erzeugen
             .then(function () {
                 json = $.makeArray(json);
                 var list = '<form><div class="form-group">' +
@@ -44,8 +48,8 @@ function learn(context) {
                 $("#chooseCollection").append(startButton);
             })
             .then(function () {
-                document.getElementById('startButton').addEventListener('click', showQuestions)
-            });
+                document.getElementById('startButton').addEventListener('click', showQuestions)*/
+            //});
         });
 }
 
@@ -55,7 +59,7 @@ function showQuestions(){
     answers = [];
     correctAnswers = [];
     //Cards abfragen
-    var colID = $("#collectionList").val();
+    //var colID = $("#collectionList").val();
     $.ajax({
         url:'/api/cards',
         method: "GET",
@@ -65,7 +69,7 @@ function showQuestions(){
         $("#chooseCollection").hide();
         //Container erzeugen
         var container = '<div class="container" id="questionAnswer">'+
-                        '<h2>Fragen beantworten</h2>' +
+                        '<h2>Beantworte die folgenden Fragen</h2>' +
                         '</div>';
         $(".learn").append(container);
         //Fragen und Anworten erzeugen
@@ -160,4 +164,10 @@ function showStatistic(correctAnswerCounter, answerAmount) {
 
 function refresh(){
     location.reload();
+}
+
+function getCollectionID() {
+    let url = window.location.hash;
+    console.log(url);
+    return url.substring(11);
 }

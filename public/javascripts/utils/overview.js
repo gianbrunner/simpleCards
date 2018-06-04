@@ -48,7 +48,7 @@ function overview(context) {
                         deleteCol(value.id);
                     });
                     document.getElementById('learnButton'+ value.id +'').addEventListener('click', function(){
-                        learnCol();
+                        learnCol(value.id);
                     });
                 });
             })
@@ -115,6 +115,6 @@ function addCard(colID){
     window.location = '/#/card' + '?id=' + colID;
 }
 
-function learnCol(){
-    window.location = '/#/learn';
+function learnCol(colID){
+    window.location = '/#/learn' + '?id=' + colID;
 }
