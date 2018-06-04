@@ -32,14 +32,10 @@ function overview(context) {
                                 '<h4 class="card-title">'+ value.name +'</h4>'+
                                 '<p class="card-text">Kategorie: '+ value.topic +
                                 '<br>Beschreibung: '+ value.description +'</p>'+
-                                '<div class="btn-group" role="group" aria-label="Basic example">'+
                                 '<button type="button" class="btn btn-primary" id="cardButton'+ value.id +'" value="'+value.id+'">Karten anzeigen</button>'+
                                 '<button type="button" class="btn btn-primary" id="learnButton'+ value.id +'" value="'+value.id+'">Kartei lernen</button>'+
-                                '</div>'+
-                                '<div class="btn-group" role="group" aria-label="Basic example">'+
                                 '<button type="button" class="btn btn-secondary" id="cardAddButton'+ value.id +'" value="'+value.id+'">Karte hinzufügen</button>'+
                                 '<button type="button" class="btn btn-danger" id="deleteButton'+ value.id +'" value="'+value.id+'">Kartei löschen</button>'+
-                                '</div>'+
                                 '</div></div></div>';
                     $("#colOverview").append(card);
                     document.getElementById('cardButton'+ value.id +'').addEventListener('click', function(){
@@ -76,7 +72,7 @@ function loadCards(colID, colName){
         //Karten erzeugen
         $.each(json, function(index, value){
             if(value.fk_id == colID){
-                var card =  '<div class="col-sm-12 col-md-6 col-4"><div class="card"><div class="card-body">'+
+                var card =  '<div class="col-sm-12 col-md-6 col-4"><div class="card" id="cardNr'+ value.id +'"><div class="card-body">'+
                             '<h4 class="card-title">Karte Nr.: '+ value.id +'</h4>'+
                             '<p class="card-text">Frage: '+ value.question +
                             '<br>Antwort: '+ value.answer +'</p>'+
@@ -107,7 +103,7 @@ function deleteCard(cardID){
         url: '/api/cards/'+cardID,
         type: 'DELETE',
         success: function(result) {
-            alert("Karte gelöscht!");
+            $("#cardNr"+cardID).hide();
         }
     });
 }
