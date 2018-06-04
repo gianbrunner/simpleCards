@@ -62,9 +62,12 @@ function loadCards(colID, colName){
                             '<h4 class="card-title">Karte Nr.: '+ value.id +'</h4>'+
                             '<p class="card-text">Frage: '+ value.question +
                             '<br>Antwort: '+ value.answer +'</p>'+
-                            //'<button type="button" class="btn btn-primary" id="cardButton'+ value.id +'" value="'+value.id+'">Karten anzeigen</button>'+
+                            '<button type="button" class="btn btn-danger" id="deleteButton'+ value.id +'" value="'+value.id+'">Karte löschen</button>'+
                             '</div></div></div>';
                 $("#cardOverview").append(card);
+                document.getElementById('deleteButton'+ value.id +'').addEventListener('click', function(){
+                    deleteCard(value.id);
+                });
             }
         });
     });
@@ -76,6 +79,16 @@ function deleteCol(colID){
         type: 'DELETE',
         success: function(result) {
             alert("Kartei gelöscht!");
+        }
+    });
+}
+
+function deleteCard(cardID){
+    $.ajax({
+        url: '/api/cards/'+colID,
+        type: 'DELETE',
+        success: function(result) {
+            alert("Karte gelöscht!");
         }
     });
 }
