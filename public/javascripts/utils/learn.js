@@ -5,7 +5,7 @@ var questions = [];
 var answers = [];
 //Lösungsarray
 var correctAnswers = [];
-
+var collectionID;
 
 // --- Methoden
 function learn(context) {
@@ -17,7 +17,7 @@ function learn(context) {
     }).done(function(json) {
 //Layout erzeugen
         console.log(json);
-        colID = getCollectionID();
+        collectionID = getColID();
         context.render('/assets/html/learn.html', {})
             .appendTo(context.$element())
             .then(function () {
@@ -74,7 +74,7 @@ function showQuestions(){
         $(".learn").append(container);
         //Fragen und Anworten erzeugen
         $.each(json, function(index, value){
-            if(value.fk_id == colID){
+            if(value.fk_id == collectionID){
                 //Frage erzeugen
                 var question = '<p id="question">'+ value.question +'</p>'
                 $("#questionAnswer").append(question);
@@ -160,14 +160,21 @@ function showStatistic(correctAnswerCounter, answerAmount) {
     var startAgainButton = '<button type="button" class="btn btn-primary" id="startAgainButton">Nochmals lernen</button>';
     $("#statistic").append(startAgainButton);
     document.getElementById('startAgainButton').addEventListener('click', refresh);
+    var overviewButton = '<button type="button" class="btn btn-primary" id="overviewButton">Zurück zur Übersicht</button>';
+    $("#statistic").append(overviewButton);
+    document.getElementById('overviewButton').addEventListener('click', backToOverview);
 }
 
 function refresh(){
     location.reload();
 }
 
-function getCollectionID() {
+function getColID() {
     let url = window.location.hash;
     console.log(url);
     return url.substring(11);
+}
+
+function backToOverview() {
+    window.location = '/#/overview';
 }
