@@ -125,8 +125,6 @@ function colAdd() {
             $('#colSubmit').popover('show');
             setTimeout(function () {
                 $('#colSubmit').popover('hide');
-                //$.sammy.refresh();
-                //location.reload();
                 window.location = '/#/overview';
             }, 1000);
         });

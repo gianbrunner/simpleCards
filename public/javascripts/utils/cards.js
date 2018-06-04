@@ -96,7 +96,7 @@ function cardAdd() {
             setTimeout(function () {
                 $('#cardSubmit').popover('hide');
                 //$.sammy.refresh();
-                location.reload();
+                window.location = '/#/card'
             }, 1000);
         });
     }
