@@ -34,7 +34,7 @@ function collection(context) {
                 '<textarea class="form-control" id="colDescr" placeholder="Beschreibung" rows="4"></textarea>' +
                 '<div class="invalid-feedback">Beschreibung ist zu kurz</div>' +
                 '</div>' +
-                '<button id="colSubmit" type="submit" class="btn btn-info"' +
+                '<button id="colSubmit" type="button" class="btn btn-info"' +
                 'data-toggle="popover" data-placement="right" data-content=""' +
                 '>Anlegen</button>' +
                 '</form>' +

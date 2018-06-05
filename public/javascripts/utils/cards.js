@@ -53,7 +53,7 @@ function card(context) {
                     '<input type="text" class="form-control" id="cardAnswer" placeholder="Antwort">' +
                     '<div class="invalid-feedback">Bitte gib eine gültige Antwort an</div>' +
                     '</div>' +
-                    '<button id="cardSubmit" type="submit" class="btn btn-info"' +
+                    '<button id="cardSubmit" type="button" class="btn btn-info"' +
                     'data-toggle="popover" data-placement="right" data-content="">Anlegen</button>' +
                     // '<p id="colMessage">Bitte wählen Sie eine Kartei aus.</p>'+
                     // '<p id="questionMessage">Bitte geben Sie eine Frage ein.</p>'+
@@ -102,7 +102,9 @@ function cardAdd() {
             setTimeout(function () {
                 $('#cardSubmit').popover('hide');
                 //$.sammy.refresh();
-                window.location = '/#/card?id=' + colID;
+                //location.reload();
+                $('#cardQuestion').val('').attr('placeholder', 'Frage');
+                $('#cardAnswer').val('').attr('placeholder', 'Antwort');
             }, 1000);
         });
     }
