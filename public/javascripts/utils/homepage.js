@@ -1,3 +1,7 @@
+/**
+ * Creates Startpage
+ * @param context
+ */
 function homepage(context) {
     context.render('/assets/html/homepage.html', {})
         .appendTo(context.$element())

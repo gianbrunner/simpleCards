@@ -8,7 +8,7 @@ public class CardTest {
 
 
     /**
-     * Testkarte erzeugen
+     * Testkarte erzeugen, mit Informationen abfüllen und überprüfen, ob die korrekten Informationen zurückkommen
      */
     @Test
     public void testCard(){

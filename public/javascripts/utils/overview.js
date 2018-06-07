@@ -1,13 +1,14 @@
-// --- Methoden
+/**
+ * Method for showing an Overview about Collections and Cards
+ * @param context
+ */
 function overview(context) {
-    //Collection abfragen
     $.ajax({
         url: '/api/collections',
         method: "GET",
         contentType: "application/json"
     }).done(function(json) {
-        //Layout erzeugen
-        console.log(json);
+        //Create Layout
         context.render('/assets/html/overview.html', {})
             .appendTo(context.$element())
             .then(function () {
@@ -25,7 +26,7 @@ function overview(context) {
                     addCol();
                 });
             })
-            //Cards für Collections erzeugen
+            //Create Bootstrap-Cards for Collections
             .then(function () {
                 $.each(json, function (index, value) {
                     var card =  '<div class="col-sm-12 col-lg-6"><div class="card"  id="colNr'+ value.id +'"><div class="card-body">'+
@@ -54,22 +55,26 @@ function overview(context) {
             })
     });
 }
+
+/**
+ * Method for Card overview
+ * @param colID
+ * @param colName
+ */
 function loadCards(colID, colName){
-    //Cards abfragen
     $.ajax({
         url:'/api/cards',
         method: "GET",
         contentType: "application/json"
     }).done(function(json) {
-        console.log(json);
         $("#collections").hide();
-        //Container erzeugen
+        // Creates Layout
         var layout =    '<div class="container" id="collections">' +
                         '<h2>Übersicht der Karten</h2>' +
                         '<div class="row" id="cardOverview">'+
                         '</div></div>';
         $(".overview").append(layout);
-        //Karten erzeugen
+        // Creates Bootstrap-Cards for each Card
         $.each(json, function(index, value){
             if(value.fk_id == colID){
                 var card =  '<div class="col-sm-12 col-md-6 col-4"><div class="card" id="cardNr'+ value.id +'"><div class="card-body">'+
@@ -87,6 +92,10 @@ function loadCards(colID, colName){
     });
 }
 
+/**
+ * Deletes Collection on Click
+ * @param colID
+ */
 function deleteCol(colID){
     $.ajax({
         url: '/api/collections/'+colID,
@@ -97,6 +106,10 @@ function deleteCol(colID){
     });
 }
 
+/**
+ * Deletes Card on Click
+ * @param cardID
+ */
 function deleteCard(cardID){
     $.ajax({
         url: '/api/cards/'+cardID,

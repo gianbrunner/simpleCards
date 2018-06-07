@@ -1,7 +1,16 @@
+/**
+ * Global Parameters
+ */
 let colID;
 
+
+/**
+ * Method to create new Cards
+ *
+ * @param context
+ */
 function card(context) {
-//Collection abfragen
+    //Collection request
     var collectionUrl = '/api/collections';
     var cardUrl = '/api/cards';
     $.ajax({
@@ -9,24 +18,11 @@ function card(context) {
         method: "GET",
         contentType: "application/json"
     }).done(function (json) {
-//Layout erzeugen
-        console.log(json);
+    //Create Layout
         colID = getCollectionID();
         context.render('/assets/html/cards.html', {})
             .appendTo(context.$element())
-            .then(function () {
-                // var layout = '<div class="container" id="chooseCollection">' +
-                //     '<h2>Kartei auswählen</h2>' +
-                //     '</div>' +
-                //     '<div class="container" id="questionAnswer">' +
-                //     '<h2>Frage und Antwort formulieren</h2>' +
-                //     '</div>';
-                // var layout = '<div class="container" id="collection">' +
-                //     '<h3>Kartei auswählen</h3>' +
-                //     '</div>';
-                // $(".cards").append(layout);
-            })
-            //Liste erzeugen
+            //Create Title with Collection name
             .then(function () {
                 json = $.makeArray(json);
                 $.each(json, function (index, value) {
@@ -41,8 +37,7 @@ function card(context) {
                     }
                 });
             })
-
-            //Frage und Antwort erzeugen
+            //Create Fields for Question and Answer
             .then(function () {
                 var questionAnswer = '<form novalidate autocomplete="off">' +
                     '<div class="form-group">' +
@@ -55,27 +50,23 @@ function card(context) {
                     '</div>' +
                     '<button id="cardSubmit" type="button" class="btn btn-info"' +
                     'data-toggle="popover" data-placement="right" data-content="">Anlegen</button>' +
-                    // '<p id="colMessage">Bitte wählen Sie eine Kartei aus.</p>'+
-                    // '<p id="questionMessage">Bitte geben Sie eine Frage ein.</p>'+
-                    // '<p id="answerMessage">Bitte geben Sie eine Antwort ein.</p>'+
                     '</form>';
                 $("#questionAnswer").append(questionAnswer);
                 $('#cardSubmit').popover('hide');
-                // $("#colMessage").hide;
-                // $("#questionMessage").hide;
-                // $("#answerMessage").hide;
             })
+            //Validate input
             .then(function () {
                 document.getElementById('cardSubmit').addEventListener('click', cardAdd);
-                //document.getElementById('collectionList').addEventListener('change', validateCollection);
                 document.getElementById('cardQuestion').addEventListener('change', validateQuestion);
                 document.getElementById('cardAnswer').addEventListener('change', validateAnswer);
             });
     });
 }
 
+/**
+ * Adds Card to Database
+ */
 function cardAdd() {
-    //validateCollection();
     validateQuestion();
     validateAnswer();
     var name = colID;
@@ -88,7 +79,6 @@ function cardAdd() {
     };
     if ($('.is-invalid').length == 0) {
         card = JSON.stringify(card);
-        console.log(card);
         var url = '/api/cards';
         $.ajax({
             url: url,
@@ -96,7 +86,6 @@ function cardAdd() {
             method: "POST",
             contentType: "application/json"
         }).done(function (json) {
-            console.log("done");
             $('#cardSubmit').attr('data-content', 'Karte wurde angelegt');
             $('#cardSubmit').popover('show');
             setTimeout(function () {
@@ -109,7 +98,6 @@ function cardAdd() {
         });
     }
     else {
-        console.log("inputs not right");
         $('#cardSubmit').attr('data-content', 'Kartenangaben nicht vollständig');
         $('#cardSubmit').popover('show');
         setTimeout(function () {
@@ -118,50 +106,27 @@ function cardAdd() {
     }
 }
 
+/**
+ * Checks if Inputfield length for Question is greater than zero
+ */
 function validateQuestion() {
     if ($('#cardQuestion').val().length < 1) $('#cardQuestion').addClass('is-invalid');
     else $('#cardQuestion').removeClass('is-invalid');
 }
 
+/**
+ * Checks if Inputfield length for Answer is greater than zero
+ */
 function validateAnswer() {
     if ($('#cardAnswer').val().length < 1) $('#cardAnswer').addClass('is-invalid');
     else $('#cardAnswer').removeClass('is-invalid');
 }
 
-function validateCollection() {
-    if ($('#collectionList').val() == 'Bitte Kartei auswählen') $('#collectionList').addClass('is-invalid');
-    else $('#collectionList').removeClass('is-invalid');
-}
-
+/**
+ * Gets ID from URL
+ * @returns {string}
+ */
 function getCollectionID() {
     let url = window.location.hash;
     return url.substring(10);
 }
-
-// function checkFields() {
-//     //Kartei kontrollieren
-//     if ($('#collectionList').val() == 'Bitte Kartei auswählen') {
-//         $("#colMessage").show();
-//         $("#colMessage").css("color", "red");
-//     } else {
-//         $("#colMessage").hide();
-//     }
-//     //Frage kontrollieren
-//     if ($('#cardQuestion').val() == null) {
-//         $("#questionMessage").show();
-//         $("#questionMessage").css("color", "red");
-//     } else {
-//         $("#questionMessage").hide();
-//     }
-//     //Antwort kontrollieren
-//     if ($('#cardAnswer').val() == null) {
-//         $("#answerMessage").show();
-//         $("#answerMessage").css("color", "red");
-//     } else {
-//         $("#answerMessage").hide();
-//     }
-// }
-/*
-    TODO: location.reload nach karte hinzufügen, lädt homepage neu
-    TODO: jquery.js codezeile 5013 ist zuständig für sammy.js absturz
-*/
