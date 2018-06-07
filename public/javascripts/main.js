@@ -1,6 +1,9 @@
-var app = $.sammy('#app', function() {          // definiert neue Sammy application und bindet diese an #app
-    this.get('#/card', function(context) {     // neue route
-        context.app.swap('');                   // ersetzt den Inhalt vom app Element mit ''
+/**
+ * Defines new Sammy application, binds it to #app, sets new route and replaces Content from element app with ''
+ */
+var app = $.sammy('#app', function() {
+    this.get('#/card', function(context) {
+        context.app.swap('');
         card(context);
     });
     this.get('#/collection', function(context) {
@@ -20,7 +23,9 @@ var app = $.sammy('#app', function() {          // definiert neue Sammy applicat
         overview(context);
     });
 });
-
+/**
+ * Sets start page to "home"
+ */
 $(function(){
     app.run("#/home");
 });
