@@ -1,7 +1,7 @@
 package api;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import models.Card;
+import models.Collection;
 import org.junit.Test;
 import play.libs.Json;
 
@@ -12,20 +12,20 @@ import java.net.URL;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Functional-Test of CardAPI
+ * Functional-Test of CollectionAPI
  */
-public class CardAPITest {
+public class CollectionAPITest {
 
     /**
-     * Opens a HTTP-connection and sends a GET request to the URL=http://localhost:9000/api/cards/1 .
-     * The result is a json-object from the card with id = 1.
-     * The json-object is converted to a card-object.
-     * The card-object parameters are compared with the expected parameters in assertequals-functions.
+     * Opens a HTTP-connection and sends a GET request to the URL=http://localhost:9000/api/collections/1 .
+     * The result is a json-object from the collection with id = 1.
+     * The json-object is converted to a collection-object.
+     * The collection-object parameters are compared with the expected parameters in assertequals-functions.
      */
     @Test
-    public void testGetCardWithID1(){
+    public void testGetCollectionWithID1(){
         try {
-            URL url = new URL("http://localhost:9000/api/cards/1");
+            URL url = new URL("http://localhost:9000/api/collections/1");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             // Response code
@@ -44,13 +44,13 @@ public class CardAPITest {
             // Convert stringbuffer to collection-object
             String responseJsonString = response.toString();
             JsonNode cardJsonNode = Json.parse(responseJsonString);
-            Card dut = Json.fromJson(cardJsonNode, Card.class);
+            Collection dut = Json.fromJson(cardJsonNode, Collection.class);
 
             assertEquals(200, responseCode);
             assertEquals((Long)1L, dut.getId());
-            assertEquals((Long)1L, dut.getFk_id());
-            assertEquals("Englisches Wort für Apfel?", dut.getQuestion());
-            assertEquals("Apple", dut.getAnswer());
+            assertEquals("Englisch Wörter", dut.getName());
+            assertEquals("Englisch", dut.getTopic());
+            assertEquals("Wörter übersetzen", dut.getDescription());
 
         } catch (Exception e) {
             e.printStackTrace();
