@@ -13,9 +13,11 @@ import services.CardService;
 import javax.inject.Inject;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
-//import services.DefaultCardService;
 
-@Api(value = "Card Controller", produces = "application/json")
+/**
+ * This controller contains different actions to interact with the service of the card-model.
+ * The implementation is completely asynchronous.
+ */
 public class CardController extends Controller{
 
     private final CardService cardService;
@@ -27,14 +29,12 @@ public class CardController extends Controller{
         this.ec = ec;
     }
 
-    @ApiOperation(value = "Get Cards", notes = "Get list of cards filtered by string.")
     public CompletionStage<Result> getCards(){
         return cardService.get().thenApplyAsync(cardStream->{
             return ok(Json.toJson(cardStream.collect(Collectors.toList())));
         }, ec.current());
     }
 
-    @ApiOperation(value = "Create Card", notes = "Create a new card from json-data.")
     public CompletionStage<Result> createNewCard(){
         final JsonNode json = request().body().asJson();
         final Card cardToPersist = Json.fromJson(json, Card.class);
@@ -43,14 +43,12 @@ public class CardController extends Controller{
         }, ec.current());
     }
 
-    @ApiOperation(value = "Get Card", notes = "Get the card with given id.")
     public CompletionStage<Result> getCard(long id){
         return cardService.get(id).thenApplyAsync(card -> {
             return ok(Json.toJson(card));
         }, ec.current());
     }
 
-    @ApiOperation(value = "Delete Card", notes = "Delete card with given id.")
     public CompletionStage<Result> deleteCard(long id){
         return cardService.delete(id).thenApplyAsync(removed ->{
             return removed ? ok() : internalServerError();

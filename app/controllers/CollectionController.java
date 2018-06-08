@@ -16,7 +16,10 @@ import javax.inject.Inject;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
 
-@Api(value = "Collection Controller", produces = "application/json")
+/**
+ * This controller contains different actions to interact with the service of the collection-model.
+ * The implementation is completely asynchronous.
+ */
 public class CollectionController extends Controller{
 
     private final CollectionService collectionService;
@@ -28,7 +31,6 @@ public class CollectionController extends Controller{
         this.ec = ec;
     }
 
-    @ApiOperation(value = "Get Collections", notes = "Get list of collections filtered by string.")
     public CompletionStage<Result> getCollections(){
         return collectionService.get().thenApplyAsync(collectionStream -> {
             return ok(Json.toJson(collectionStream.collect(Collectors.toList())));
@@ -36,7 +38,6 @@ public class CollectionController extends Controller{
 
     }
 
-    @ApiOperation(value = "Create Collection", notes = "Create a new collection from json-data.")
     public CompletionStage<Result> createNewCollection(){
         final JsonNode json = request().body().asJson();
         final Collection collectionToPersist = Json.fromJson(json, Collection.class);
@@ -45,14 +46,12 @@ public class CollectionController extends Controller{
         });
     }
 
-    @ApiOperation(value = "Get Collection", notes = "Get the collection with given id.")
     public CompletionStage<Result> getCollection(long id){
         return collectionService.get(id).thenApplyAsync(collection -> {
             return ok(Json.toJson(collection));
         }, ec.current());
     }
 
-    @ApiOperation(value = "Delete Collection", notes = "Delete the collection with given id.")
     public CompletionStage<Result> deleteCollection(long id){
         return collectionService.delete(id).thenApplyAsync(removed -> {
             return removed ? ok() : internalServerError();
