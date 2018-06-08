@@ -21,6 +21,8 @@ public class CardAPITest {
      * The result is a json-object from the card with id = 1.
      * The json-object is converted to a card-object.
      * The card-object parameters are compared with the expected parameters in assertequals-functions.
+     *
+     * IMPORTANT: The webapplication has to run, in order to receive a response from the server.
      */
     @Test
     public void testGetCardWithID1(){

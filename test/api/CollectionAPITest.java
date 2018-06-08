@@ -21,6 +21,8 @@ public class CollectionAPITest {
      * The result is a json-object from the collection with id = 1.
      * The json-object is converted to a collection-object.
      * The collection-object parameters are compared with the expected parameters in assertequals-functions.
+     *
+     * IMPORTANT: The webapplication has to run, in order to receive a response from the server.
      */
     @Test
     public void testGetCollectionWithID1(){
