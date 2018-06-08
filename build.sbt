@@ -35,3 +35,5 @@ libraryDependencies ++= Seq(
   "org.webjars.npm" % "tooltip.js" % "1.2.0",
   "org.webjars" % "sammy" % "0.7.4"
 )
+
+herokuAppName in Compile := "aqueous-inlet-73090"
