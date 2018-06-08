@@ -1,14 +1,17 @@
 package models;
 
-        import play.db.jpa.JPAApi;
-        import javax.inject.Inject;
-        import javax.persistence.EntityManager;
-        import java.util.List;
-        import java.util.concurrent.CompletionStage;
-        import java.util.function.Function;
-        import java.util.stream.Stream;
-        import static java.util.concurrent.CompletableFuture.supplyAsync;
+import play.db.jpa.JPAApi;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import java.util.List;
+import java.util.concurrent.CompletionStage;
+import java.util.function.Function;
+import java.util.stream.Stream;
+import static java.util.concurrent.CompletableFuture.supplyAsync;
 
+/**
+ * This class interacts with the H2-Database by utilizing JPA and EntityManager API
+ */
 public class CardRepository {
     private final JPAApi jpaApi;
     @Inject
@@ -30,8 +33,6 @@ public class CardRepository {
     private <T> T wrap(Function<EntityManager, T> function) {
         return jpaApi.withTransaction(function);
     }
-
-
     private Card insert(EntityManager em, Card card) {
         em.persist(card);
         return card;

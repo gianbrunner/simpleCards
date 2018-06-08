@@ -9,6 +9,9 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 import static java.util.concurrent.CompletableFuture.supplyAsync;
 
+/**
+ * This class interacts with the H2-Database by utilizing JPA and EntityManager API
+ */
 public class CollectionRepository {
     private final JPAApi jpaApi;
     @Inject
@@ -30,8 +33,6 @@ public class CollectionRepository {
     private <T> T wrap(Function<EntityManager, T> function) {
         return jpaApi.withTransaction(function);
     }
-
-
     private Collection insert(EntityManager em, Collection collection) {
         em.persist(collection);
         return collection;
@@ -48,7 +49,6 @@ public class CollectionRepository {
         if(null != collection) {
             em.remove(collection);
             return true;
-
         }
         return false;
     }

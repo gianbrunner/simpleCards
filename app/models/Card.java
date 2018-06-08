@@ -1,9 +1,11 @@
 package models;
-
-import org.hibernate.annotations.ManyToAny;
-
 import javax.persistence.*;
 
+/**
+ * This class represents a learning card with Fields for id, fk_id (Reference to Collection), Question and Answer
+ * The Cards are mapped to the Entity "card" in h2-Database
+ * Field "id" is generated automatically by the Database
+ */
 @Entity(name = "card")
 public class Card {
 

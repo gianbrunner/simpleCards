@@ -8,7 +8,7 @@ public class CollectionTest {
 
 
     /**
-     * Testcollection erzeugen
+     * Creates a testcollection, fills it with information and checks if the response is correct
      */
     @Test
     public void testCollection(){

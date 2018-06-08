@@ -1,17 +1,18 @@
 package models;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
+/**
+ * This class represents a Collection of Cards with Fields for id, name, topic and description
+ * The Collections are mapped to the Entity "collection" in h2-Database
+ * Field "id" is generated automatically by the Database
+ */
 @Entity(name = "collection")
 public class Collection {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-//    @OneToMany
-//    private List<Card> cards;
     private String name;
     private String topic;
     private String description;
@@ -48,11 +49,4 @@ public class Collection {
         this.description = description;
     }
 
-//    public List<Card> getCards() {
-//        return cards;
-//    }
-//
-//    public void setCards(List<Card> cards) {
-//        this.cards = cards;
-//    }
 }
